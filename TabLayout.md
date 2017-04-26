@@ -100,18 +100,22 @@ public class MyFragmentPagerAdapter extends FragmentPagerAdapter {
 ```
 PageFragment就是一个空白的Fragment
 
-- 到这里最基础的搭配使用就ok了，下面贴上一些可以自己定制需求常用的方法
+到这里最基础的搭配使用就ok了，下面贴上一些可以自己定制需求常用的方法
 
 设置游标的颜色
+
 setSelectedTabIndicatorColor(int color)
 
 设置游标的高度 0就是没有
+
 setSelectedTabIndicatorHeight(int height)
 
 设置tablayout标签的模式 （fixed）默认固定的选项卡同时显示所有选项卡，（scrollable）可滚动选项卡并且可以包含较长的选项卡标签和更大数量
+
 setTabMode()
 
 设置tab标签文字颜色
+
 setTabTextColors（）
 
 
