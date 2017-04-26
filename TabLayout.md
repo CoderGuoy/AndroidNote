@@ -108,7 +108,7 @@ public class MyFragmentPagerAdapter extends FragmentPagerAdapter {
 - PageFragment就是一个空白的Fragment
 
 - 到这里最基础的搭配使用就ok了，下面贴上一些可以自己定制需求常用的方法
-
+```java
 设置游标的颜色
 
 setSelectedTabIndicatorColor(int color)
@@ -125,6 +125,6 @@ setTabMode()
 
 setTabTextColors（）
 
-
+```
 
 
