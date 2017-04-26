@@ -4,8 +4,15 @@ TabLayout provides a horizontal layout to display tabs.
 
 Google官方对这个控件的大概意思是一个横向的布局标签
 ### 使用方法
+- TabLayout来自design兼容包，使用需要添加依赖。android studio 添加依赖如下：
+```xml
+dependencies {
+    compile ‘com.android.support:appcompat-v7:23.4.0‘
+    compile ‘com.android.support:design:24.2.0‘
+}
+```
 
-首先，我们先来实现一个最简单的tablayout
+- 首先，我们先来实现一个最简单的tablayout
 
 #### Step1
 
@@ -34,9 +41,9 @@ Google官方对这个控件的大概意思是一个横向的布局标签
 
 ！[]image
 
-这两步就可以实现一个简单的Tablayout滑动标签，so easy!
+- 这两步就可以实现一个简单的Tablayout滑动标签，so easy!
 
-But,通常我们使用滑动标签逗搭配Viewpager来使用，看看如何实现
+- But,通常我们使用滑动标签逗搭配Viewpager来使用，看看如何实现
 
 #### Step1
 ```java
@@ -98,9 +105,9 @@ public class MyFragmentPagerAdapter extends FragmentPagerAdapter {
 }
 
 ```
-PageFragment就是一个空白的Fragment
+- PageFragment就是一个空白的Fragment
 
-到这里最基础的搭配使用就ok了，下面贴上一些可以自己定制需求常用的方法
+- 到这里最基础的搭配使用就ok了，下面贴上一些可以自己定制需求常用的方法
 
 设置游标的颜色
 
