@@ -29,8 +29,8 @@ Google官方对这个控件的大概意思是一个横向的布局标签
         tabLayout.addTab(tabLayout.newTab().setText("Tab 2"));
         tabLayout.addTab(tabLayout.newTab().setText("Tab 3"));
     }
-  }
-···
+  }
+```
 
 ！[]image
 
