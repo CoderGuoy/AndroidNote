@@ -1,4 +1,4 @@
-## Tablayout介绍及使用详情
+## Metal Design 风格的导航栏Tablayout介绍及使用详情
 
 TabLayout provides a horizontal layout to display tabs.
 
@@ -100,7 +100,7 @@ public class MyFragmentPagerAdapter extends FragmentPagerAdapter {
 ```
 PageFragment就是一个空白的Fragment
 
-到这里最基础的搭配使用就ok了，下面贴上一些可以自己定制需求常用的方法
+- 到这里最基础的搭配使用就ok了，下面贴上一些可以自己定制需求常用的方法
 
 设置游标的颜色
 setSelectedTabIndicatorColor(int color)
