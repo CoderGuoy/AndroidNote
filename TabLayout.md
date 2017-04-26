@@ -1,5 +1,3 @@
-# weiget
-
 ## Tablayout介绍及使用详情
 
 TabLayout provides a horizontal layout to display tabs.
@@ -40,7 +38,6 @@ Google官方对这个控件的大概意思是一个横向的布局标签
 But,通常我们使用滑动标签逗搭配Viewpager来使用，看看如何实现
 
 #### Step1
-
 ```java
     <android.support.design.widget.TabLayout
         android:id="@+id/tablayout"
