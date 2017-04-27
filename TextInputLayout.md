@@ -197,7 +197,7 @@ setTypeface(Typeface typeface)
 
 - 查看源码发现并没有对此进行处理，所以我们在使用的时候需要自己实现edittext的监听来实现完整的效果
 
-
+### [完整代码点我下载](https://github.com/CoderGuoy/Coder)
 
 ## Thank you
 
