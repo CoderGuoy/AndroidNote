@@ -40,6 +40,7 @@ dependencies {
   }
 ```
 - 效果图
+
 ！[](https://github.com/CoderGuoy/MetalDesign/blob/master/screenshots/tablayout01.gif)
 
 - 这两步就可以实现一个简单的Tablayout滑动标签，so easy!
@@ -109,8 +110,11 @@ public class MyFragmentPagerAdapter extends FragmentPagerAdapter {
 - PageFragment就是一个空白的Fragment
 
 - 效果图（这是没有设置tabMode时的样子，默认显示的模式是 fixed 固定的选项卡同时显示所有选项卡）
+
 ![](https://github.com/CoderGuoy/MetalDesign/blob/master/screenshots/tablayout03.gif)
+
 - 效果图 （这是设置tabMode为scrollable的样子）
+
 ![](https://github.com/CoderGuoy/MetalDesign/blob/master/screenshots/tablayout02.gif)
 
 
@@ -139,6 +143,7 @@ setTabTextColors（）
 - Question1：如果Tablayout和viewpager一起使用，tabLayout.addTab添加的标题就会失效！
 
 - 效果图
+
 ![](https://github.com/CoderGuoy/MetalDesign/blob/master/screenshots/tablayout04.gif)
 
 - 查看谷歌的文档发现，Tablayout会默认执行setTabsFromPagerAdapter，这个方法的效果是从给定的PagerAdapter填充我们的标签内容，
