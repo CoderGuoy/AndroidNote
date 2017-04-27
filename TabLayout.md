@@ -3,6 +3,7 @@
 TabLayout provides a horizontal layout to display tabs.
 
 Google官方对这个控件的大概意思是一个横向的布局标签
+
 ### 使用方法
 - TabLayout来自design兼容包，使用需要添加依赖。android studio 添加依赖如下：
 ```xml
@@ -38,8 +39,8 @@ dependencies {
     }
   }
 ```
-
-！[]image
+- 效果图
+！[](https://github.com/CoderGuoy/MetalDesign/blob/master/screenshots/tablayout01.gif)
 
 - 这两步就可以实现一个简单的Tablayout滑动标签，so easy!
 
@@ -107,6 +108,12 @@ public class MyFragmentPagerAdapter extends FragmentPagerAdapter {
 ```
 - PageFragment就是一个空白的Fragment
 
+- 效果图（这是没有设置tabMode时的样子，默认显示的模式是 fixed 固定的选项卡同时显示所有选项卡）
+![](https://github.com/CoderGuoy/MetalDesign/blob/master/screenshots/tablayout03.gif)
+- 效果图 （这是设置tabMode为scrollable的样子）
+![](https://github.com/CoderGuoy/MetalDesign/blob/master/screenshots/tablayout02.gif)
+
+
 - 到这里最基础的搭配使用就ok了，下面贴上一些可以自己定制需求常用的方法
 ```java
 设置游标的颜色
@@ -130,6 +137,9 @@ setTabTextColors（）
 ### 遇到的问题
 
 - Question1：如果Tablayout和viewpager一起使用，tabLayout.addTab添加的标题就会失效！
+
+- 效果图
+![](https://github.com/CoderGuoy/MetalDesign/blob/master/screenshots/tablayout04.gif)
 
 - 查看谷歌的文档发现，Tablayout会默认执行setTabsFromPagerAdapter，这个方法的效果是从给定的PagerAdapter填充我们的标签内容，
 任何现有的选项卡将被首先删除。 每个选项卡将其文本设置为从getPageTitle（int）返回的值
