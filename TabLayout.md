@@ -41,7 +41,7 @@ dependencies {
 ```
 - 效果图
 
-！[](https://github.com/CoderGuoy/MetalDesign/blob/master/screenshots/tablayout01.gif)
+![](https://github.com/CoderGuoy/MetalDesign/blob/master/screenshots/tablayout01.gif)
 
 - 这两步就可以实现一个简单的Tablayout滑动标签，so easy!
 
@@ -159,4 +159,8 @@ setTabTextColors（）
 
 ```
 
+## Thank you
+
+- 以上仅本人学习中遇到的问题，如有更多意见欢迎随时交流[](https://github.com/CoderGuoy/MetalDesign/issues/1)
+- email:andriodguoy@gmail.com(安卓的单词不是我打错了，是不允许使用，故i和o位置调换了)
 
