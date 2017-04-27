@@ -131,10 +131,10 @@ setTabTextColors（）
 
 - Question1：如果Tablayout和viewpager一起使用，tabLayout.addTab添加的标题就会失效！
 
-查看谷歌的文档发现，Tablayout会默认执行setTabsFromPagerAdapter，这个方法的效果是从给定的PagerAdapter填充我们的标签内容，
+- 查看谷歌的文档发现，Tablayout会默认执行setTabsFromPagerAdapter，这个方法的效果是从给定的PagerAdapter填充我们的标签内容，
 任何现有的选项卡将被首先删除。 每个选项卡将其文本设置为从getPageTitle（int）返回的值
 
-简单来说Tablayout和viewpager一起使用，标签的标题需要在pageradapter中的getPageTiele方法返回
+- 简单来说Tablayout和viewpager一起使用，标签的标题需要在pageradapter中的getPageTiele方法返回
 
 ```java
 @Override
