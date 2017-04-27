@@ -1,4 +1,4 @@
-## Android Material Design 风格之Tablayout|导航栏介绍及使用详情
+## Android Material Design 风格之 Tablayout | 导航栏 介绍及使用详情
 
 TabLayout provides a horizontal layout to display tabs.
 
