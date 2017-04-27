@@ -38,7 +38,7 @@ dependencies {
 ```
 - 效果图
 
-![](https://github.com/CoderGuoy/MetalDesign/blob/master/screenshots/tablayout01.gif)
+
 
 
 
