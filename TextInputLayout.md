@@ -12,7 +12,7 @@ Also supports showing an error via setErrorEnabled(boolean) and setError(CharSeq
 
 说得再好不如来张图
 
-![]()
+![](https://github.com/CoderGuoy/Android-Material-Design/blob/master/screenshots/textinputlayout.gif)
  
 
 ### 使用方法
@@ -190,10 +190,6 @@ setTypeface(Typeface typeface)
 ### 遇到的问题
 
 #### Question1：TextInputLayout并没有实现当Edittext出现错误提示后输入内容完成之后隐藏错误提示
-
-- 效果图
-
-![]()
 
 - 查看源码发现并没有对此进行处理，所以我们在使用的时候需要自己实现edittext的监听来实现完整的效果
 
