@@ -1,5 +1,7 @@
 ## Android Material Design 风格之 TextInputLayout | 文字输入布局 介绍及使用详情
 
+extends LinearLayout
+
 > Layout which wraps an EditText (or descendant) to show a floating label when the hint is hidden due to the user inputting text. 
 Also supports showing an error via setErrorEnabled(boolean) and setError(CharSequence)
 
