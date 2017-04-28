@@ -1,6 +1,6 @@
 ## Android Material Design 风格之 Tablayout | 导航栏 介绍及使用详情
 
-> Tablayout extends HorizontalScrollView
+> extends HorizontalScrollView
 
 > TabLayout provides a horizontal layout to display tabs.
 
