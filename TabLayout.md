@@ -6,7 +6,7 @@
 
 我们在应用viewpager的时候，经常会使用TabPageIndicator来与其配合。达到很漂亮的效果。但是TabPageIndicator是第三方的，而且比较老了，当然了现在很多大神都已经开始自己写TabPageIndicator来满足自己的需求。但是google发布了新的Android Support Design库，里面包含了几个新的控件，TabLayout就是其中一个，它就可以完成TabPageIndicator的效果，废话不多说，先上图
 
-![](https://github.com/CoderGuoy/MetalDesign/blob/master/screenshots/tablayout02.gif)
+![](https://github.com/CoderGuoy/Android-Material-Design/blob/master/screenshots/tablayout00.gif)
 
 ### 使用方法
 
