@@ -22,7 +22,7 @@ floating above the UI and have special motion behaviors related to morphing, lau
 
 ### 使用方法
 
-- TabLayout来自design兼容包，使用需要添加依赖。android studio 添加依赖如下：
+- FloatingActionButton来自design兼容包，使用需要添加依赖。android studio 添加依赖如下：
 ```xml
 dependencies {
     compile ‘com.android.support:appcompat-v7:23.4.0‘
