@@ -83,7 +83,7 @@ dependencies {
 
 #### 仅仅这些布局文件，就可以实现当RecyclerView向上滑动时Toolbar隐藏，向下滑动时Toolbar显示，下面来介绍下其属性
 
-- CoordinatorLayout一般直接作为根布局使用，否则会有一些功能失效
+CoordinatorLayout一般直接作为根布局使用，否则会有一些功能失效
 
 CoordinatorLayout的使用核心是Behavior，Behavior就是执行你定制的动作。在讲Behavior之前必须先理解两个概念：Child和Dependency，什么意思呢？Child当然是子View的意思了，是谁的子View呢，当然是CoordinatorLayout的子View；其实Child是指要执行动作的CoordinatorLayout的子View。而Dependency是指Child依赖的View。比如上面的gif图中，RecyclerView就是Dependency，Toolbar就是Child，因为Toolbar的动作是依赖于RecyclerView。简而言之，就是如果Dependency这个View发生了变化，那么Child这个View就要相应发生变化。发生变化是具体发生什么变化呢？这里就要引入Behavior，Child发生变化的具体执行的代码都是放在Behavior这个类里面，一般用系统定义好的Behavor就可以(也可以自定义)，这里我们在RecyclerView里面添加
 
@@ -101,6 +101,8 @@ app:layout_scrollFlags属性里面必须至少启用scroll这个flag，这样这
 - enterAlwaysCollapsed: 顾名思义，这个flag定义的是何时进入（已经消失之后何时再次显示）。假设你定义了一个最小高度（minHeight）同时enterAlways也定义了，那么view将在到达这个最小高度的时候开始显示，并且从这个时候开始慢慢展开，当滚动到顶部的时候展开完。
 
 - exitUntilCollapsed: 同样顾名思义，这个flag时定义何时退出，当你定义了一个minHeight，这个view将在滚动到达这个最小高度的时候消失。
+
+更多方法请移步至[官方文档](https://developer.android.com/reference/android/support/design/widget/CoordinatorLayout.html)
 
 ### [完整代码点我下载](https://github.com/CoderGuoy/Coder)
 
