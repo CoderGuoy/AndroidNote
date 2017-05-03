@@ -117,10 +117,6 @@ app:layout_scrollFlags属性里面必须至少启用scroll这个flag，这样这
 
     private int directionChange;
 
-    public AppBehavior() {
-        super();
-    }
-
     public AppBehavior(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
@@ -155,10 +151,6 @@ public class FabBehavior extends CoordinatorLayout.Behavior<FloatingActionButton
 
     private int directionChange;
 
-    public FabBehavior() {
-        super();
-    }
-
     public FabBehavior(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
@@ -185,6 +177,8 @@ public class FabBehavior extends CoordinatorLayout.Behavior<FloatingActionButton
 }
 
 ```
+- 注意： public FabBehavior(Context context, AttributeSet attrs) {super(context, attrs);} 这个构造方法必须重写，因为CoordinatorLayout源码中parseBehavior()函数中直接反射调用这个构造函数
+
 #### 2.在XML中给dependency添加对应的Behavior
 
 ```java
@@ -252,7 +246,7 @@ public class FabBehavior extends CoordinatorLayout.Behavior<FloatingActionButton
 
 OK，这就完成了自定义Behavior对AppbarLayout和Fab进行控制，不需要那些繁琐的监听和Touch事件，这里主要讲怎样自定义Behavior，并没有对UI效果进行友善的处理，如果对你有帮助，Do it by yourself!
 
-注意:自定义的Behavior添加需要填写绝对路径（包名+类名）
+- 注意:自定义的Behavior添加需要填写绝对路径（包名+类名）
 
 #### 总结
 
