@@ -27,7 +27,6 @@ implements NestedScrollingParent
 ```xml
 dependencies {
     compile ‘com.android.support:design:24.2.0‘
-    compile 'com.android.support:appcompat-v7:24.2.0'
 }
 ```
 
