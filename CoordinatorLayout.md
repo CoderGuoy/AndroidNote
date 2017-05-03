@@ -99,7 +99,7 @@ app:layout_scrollFlags属性里面必须至少启用scroll这个flag，这样这
 
 - exitUntilCollapsed: 同样顾名思义，这个flag时定义何时退出，当你定义了一个minHeight，这个view将在滚动到达这个最小高度的时候消失。
 
-更多方法请移步至[官方文档](https://developer.android.com/reference/android/support/design/widget/CoordinatorLayout.html)
+更多方法请看[官方文档](https://developer.android.com/reference/android/support/design/widget/CoordinatorLayout.html)
 
 ### 自定义Behavior
 
@@ -247,6 +247,8 @@ public class FabBehavior extends CoordinatorLayout.Behavior<FloatingActionButton
 OK，这就完成了自定义Behavior对AppbarLayout和Fab进行控制，不需要那些繁琐的监听和Touch事件，这里主要讲怎样自定义Behavior，并没有对UI效果进行友善的处理，如果对你有帮助，Do it by yourself!
 
 - 注意:自定义的Behavior添加需要填写绝对路径（包名+类名）
+
+Behavior中更多方法请看[官方文档](https://developer.android.com/reference/android/support/design/widget/CoordinatorLayout.Behavior.html)
 
 #### 总结
 
