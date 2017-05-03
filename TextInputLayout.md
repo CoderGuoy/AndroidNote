@@ -18,14 +18,14 @@ Also supports showing an error via setErrorEnabled(boolean) and setError(CharSeq
  
 
 ### 使用方法
-- TextInputLayout来自design兼容包，使用需要添加依赖。android studio 添加依赖如下：
+TextInputLayout来自design兼容包，使用需要添加依赖。android studio 添加依赖如下：
 ```xml
 dependencies {
     compile ‘com.android.support:design:24.2.0‘
 }
 ```
 
-####  首先，XML中添加布局文件
+####  1.首先，XML中添加布局文件
 
 ##### Step1
 
@@ -73,7 +73,7 @@ dependencies {
         </LinearLayout>
 ```
 
-#### 然后，编写相应的逻辑代码
+#### 2.然后，编写相应的逻辑代码
 
 ##### Step2
 
