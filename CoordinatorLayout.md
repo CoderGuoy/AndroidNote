@@ -23,14 +23,14 @@ implements NestedScrollingParent
 ![](https://github.com/CoderGuoy/Android-Material-Design/blob/master/screenshots/coordinator.gif)
  
 ### 使用方法
-- CoordinatorLayout来自design兼容包，使用需要添加依赖。android studio 添加依赖如下：
+CoordinatorLayout来自design兼容包，使用需要添加依赖。android studio 添加依赖如下：
 ```xml
 dependencies {
     compile ‘com.android.support:design:24.2.0‘
 }
 ```
 
-####  首先，XML中添加布局文件
+####  1.首先，XML中添加布局文件
 
 ```java
 
@@ -78,7 +78,7 @@ dependencies {
 
 ```
 
-#### 仅仅这些布局文件，就可以实现当RecyclerView向上滑动时Toolbar隐藏，向下滑动时Toolbar显示，下面来介绍下其属性
+#### 2.仅仅这些布局文件，就可以实现当RecyclerView向上滑动时Toolbar隐藏，向下滑动时Toolbar显示，下面来介绍下其属性
 
 CoordinatorLayout一般直接作为根布局使用，否则会有一些功能失效
 
@@ -250,9 +250,9 @@ public class FabBehavior extends CoordinatorLayout.Behavior<FloatingActionButton
 
 ```
 
-- OK，这就完成了自定义Behavior对AppbarLayout和Fab进行控制，不需要那些繁琐的监听和Touch事件，这里主要讲怎样自定义Behavior，并没有对UI效果进行友善的处理，如果对你有帮助，Do it by yourself!
+OK，这就完成了自定义Behavior对AppbarLayout和Fab进行控制，不需要那些繁琐的监听和Touch事件，这里主要讲怎样自定义Behavior，并没有对UI效果进行友善的处理，如果对你有帮助，Do it by yourself!
 
-- 注意:自定义的Behavior添加需要填写绝对路径（包名+类名）
+注意:自定义的Behavior添加需要填写绝对路径（包名+类名）
 
 #### 总结
 
