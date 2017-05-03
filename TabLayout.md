@@ -12,14 +12,14 @@ extends HorizontalScrollView
 
 ### 使用方法
 
-- TabLayout来自design兼容包，使用需要添加依赖。android studio 添加依赖如下：
+TabLayout来自design兼容包，使用需要添加依赖。android studio 添加依赖如下：
 ```xml
 dependencies {
     compile ‘com.android.support:design:24.2.0‘
 }
 ```
 
-#### 首先，我们先来实现一个最简单的tablayout
+#### 1.首先，我们先来实现一个最简单的tablayout
 
 ##### Step1
 
@@ -49,7 +49,7 @@ dependencies {
 
 ![](https://github.com/CoderGuoy/MetalDesign/blob/master/screenshots/tablayout01.gif)
 
-#### 这两步就可以实现一个简单的Tablayout滑动标签，so easy!But,通常我们使用滑动标签逗搭配Viewpager来使用，看看如何实现
+#### 2.这两步就可以实现一个简单的Tablayout滑动标签，so easy!But,通常我们使用滑动标签逗搭配Viewpager来使用，看看如何实现
 
 ##### Step1
 
