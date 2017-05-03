@@ -22,14 +22,14 @@ floating above the UI and have special motion behaviors related to morphing, lau
 
 ### 使用方法
 
-- FloatingActionButton来自design兼容包，使用需要添加依赖。android studio 添加依赖如下：
+FloatingActionButton来自design兼容包，使用需要添加依赖。android studio 添加依赖如下：
 ```xml
 dependencies {
     compile ‘com.android.support:design:24.2.0‘
 }
 ```
 
-#### 首先,布局文件添加，里面的属性下面有解释
+#### 1.首先,布局文件添加，里面的属性下面有解释
 
 ##### Step1
 
@@ -55,7 +55,7 @@ dependencies {
 
 fab继承imageview，所以点击事件都是一样，这里就不叙述了
 
-#### 到这里最基础的搭配使用就ok了，下面贴上一些可以自己定制需求常用的方法
+#### 2.到这里最基础的搭配使用就ok了，下面贴上一些可以自己定制需求常用的方法
 
 - 在XML中
 
@@ -104,11 +104,6 @@ fab按下波纹效果的颜色
 setRippleColor()
 
 ```
-
-
-### 遇到的问题
-
-#### Question1：
 
 ### [完整代码点我下载](https://github.com/CoderGuoy/Coder)
 
