@@ -4,7 +4,7 @@
 
 一个好的动画效果可以让界面更友善的展示给用户，特别是在提示、切换和引导等场景中，合理的使用动画可以让用户获得良好的体验，下面就介绍下我们经常会用到的动画以及如何选择合理的选择动画并使用，他们有哪些区别。
 
-- [DrawableAnimation逐帧动画帧动画](#DrawableAnimation逐帧动画帧动画) 
+- [帧动画](#帧动画) 
 
 - [DrawableAnimation逐帧动画帧动画](#DrawableAnimation逐帧动画帧动画)
 
@@ -22,7 +22,7 @@
 
 ## 抽屉菜单 
 
-## DrawableAnimation逐帧动画帧动画
+## 帧动画
 
 ## View Animation|视图动画(补间动画)
 
