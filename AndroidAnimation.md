@@ -18,7 +18,8 @@
 
 属性动画是为了改变视图动画只显示并不能响应事件在Android3.0之后推出的，Animator框架中使用组多的是AnimatorSet和ObjectAnimator的配合，ObjectAnimator可以只控制一个对象的一个属性值，用多个ObjectAnimator组合到AnimatorSet形成一个动画;而且ObjectAnimator能够自动驱动，可以调用setFrameDelay()设置动画帧之间的间隙时间，调整帧率，减少动画过程中频繁绘制界面，而在不影响动画效果的前提下减少CPU资源消耗。更重要的是，属性动画通过调整get、set方法来真实地控制一个View的属性值，因此强大的属性动画框架，基本可以实现所有的动画效果
 
-- [SVG|矢量动画]()
+- [SVG|矢量动画](https://github.com/CoderGuoy/Android-Material-Design/blob/master/AndroidAnimation.md#svg矢量动画)
+
 
 ## Drawable Animation|逐帧动画|帧动画
 
