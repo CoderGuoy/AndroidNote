@@ -1,10 +1,10 @@
-# 一篇文章搞定Android动画与AndroidSVG动画
+# 一篇文章搞定 Android动画 与 AndroidSVG动画
 
 一个好的动画效果可以让界面更友善的展示给用户，特别是在提示、切换和引导等场景中，合理的使用动画可以让用户获得良好的体验，下面就介绍下我们经常会用到的动画以及如何选择合理的选择动画并使用，他们有哪些区别。
 
 ## 动画分类及简介
 
-- [Drawable Animation|逐帧动画|帧动画](https://github.com/CoderGuoy/Android-Material-Design/blob/master/AndroidAnimation.md#drawable-animation逐帧动画帧动画)
+[Drawable Animation|逐帧动画|帧动画](https://github.com/CoderGuoy/Android-Material-Design/blob/master/AndroidAnimation.md#drawable-animation逐帧动画帧动画)
 
 帧动画这个比较好理解，就是一张张图片顺序播放，和动画片原理一样，主要应用在加载和适合循环播放的情况下使用
 
