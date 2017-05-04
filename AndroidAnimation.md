@@ -4,14 +4,45 @@
 
 [Drawable Animation|逐帧动画(帧动画)](#Drawable Animation|逐帧动画(帧动画))
 
-[View Animation    |视图动画(补间动画)](#View Animation| 视图动画(补间动画))
+[View Animation|视图动画(补间动画)](#View Animation| 视图动画(补间动画))
 
 [Property Animation|属性动画](#Property Animation|属性动画)
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## Drawable Animation|逐帧动画(帧动画)
 
-## View Animation    |视图动画(补间动画)
+## View Animation|视图动画(补间动画)
 
 ## Property Animation|属性动画
