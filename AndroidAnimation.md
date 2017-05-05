@@ -25,7 +25,7 @@
 
 ### 1.先看效果
 
-![图1]()
+![图1](https://github.com/CoderGuoy/Android-Material-Design/blob/master/screenshots/drawableanimation.gif)
 
 ### 2.代码实现
 
@@ -102,9 +102,9 @@ public class DrawableAnimation extends MvvmBaseActivity<ActivityDrawableAnimatio
 
 #### 方法介绍：
 
-<animation-list>必须要作为根元素，可以包含一或多个<item>
+animation-list 必须要作为根元素，可以包含一或多个 item
 android:onshot如果定义为true的话，此动画只会执行一次，如果为false则一直循环。
-<item>元素代表一帧动画
+item 元素代表一帧动画
 android:drawable指定此帧动画所对应的图片资源
 android:druation代表此帧持续的时间，整数，单位为毫秒
 
