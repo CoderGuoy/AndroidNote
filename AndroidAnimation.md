@@ -133,6 +133,8 @@ AlphaAnimation alpha = new AlphaAnimation(1.0f, 0.0f);
 
 0.0表示完全透明;1.0表示完全不透明
 
+![](https://github.com/CoderGuoy/Android-Material-Design/blob/master/screenshots/alpha.gif)
+
 #### 旋转|rotate
 
 XML中
@@ -183,7 +185,7 @@ TranslateAnimation translate = new TranslateAnimation(
 
 注意:没有指定fromXType toXType fromYType toYType 时候，默认是以自己为相对参照物
 
-![](https://github.com/CoderGuoy/Android-Material-Design/blob/master/screenshots/translate.png)
+![](https://github.com/CoderGuoy/Android-Material-Design/blob/master/screenshots/translate.png)![](https://github.com/CoderGuoy/Android-Material-Design/blob/master/screenshots/translate.gif)
 
 #### 缩放|scale
 
@@ -212,6 +214,8 @@ pivotXType为动画在Y轴相对于物件位置类型
 pivotYValue为动画相对于物件的Y坐标的开始位置
 
 伸缩尺寸四种属性值:0.0表示收缩到没有;1.0表示正常无伸缩;值小于1.0表示收缩;值大于1.0表示放大
+
+![](https://github.com/CoderGuoy/Android-Material-Design/blob/master/screenshots/scale.gif)
 
 #### 组合|set
 
