@@ -1,4 +1,4 @@
-# 一篇文章搞定 Android动画 与 AndroidSVG动画
+# 一篇文章搞定 Android动画
 
 一个好的动画效果可以让界面更友善的展示给用户，特别是在提示、切换和引导等场景中，合理的使用动画可以让用户获得良好的体验，下面就介绍下我们经常会用到的动画以及如何选择合理的选择动画并使用，他们有哪些区别。
 
@@ -17,8 +17,6 @@
 [Property Animation|属性动画](https://github.com/CoderGuoy/Android-Material-Design/blob/master/AndroidAnimation.md#property-animation属性动画)
 
 属性动画是为了改变视图动画只显示并不能响应事件在Android3.0之后推出的，Animator框架中使用组多的是AnimatorSet和ObjectAnimator的配合，ObjectAnimator可以只控制一个对象的一个属性值，用多个ObjectAnimator组合到AnimatorSet形成一个动画;而且ObjectAnimator能够自动驱动，可以调用setFrameDelay()设置动画帧之间的间隙时间，调整帧率，减少动画过程中频繁绘制界面，而在不影响动画效果的前提下减少CPU资源消耗。更重要的是，属性动画通过调整get、set方法来真实地控制一个View的属性值，因此强大的属性动画框架，基本可以实现所有的动画效果。
-
-[SVG|矢量动画](https://github.com/CoderGuoy/Android-Material-Design/blob/master/AndroidAnimation.md#svg矢量动画)
 
 
 ## Drawable Animation|逐帧动画|帧动画
@@ -133,7 +131,7 @@ XML中
 AlphaAnimation alpha = new AlphaAnimation(1.0f, 0.0f);
 ```
 
-说明:0.0表示完全透明;1.0表示完全不透明
+0.0表示完全透明;1.0表示完全不透明
 
 #### 旋转|rotate
 
@@ -160,7 +158,7 @@ pivotXValue为动画相对于物件的X坐标的开始位置
 pivotXType为动画在Y轴相对于物件位置类型   
 pivotYValue为动画相对于物件的Y坐标的开始位置
 
-说明:当起始角度小于旋转角度时，顺时针旋转;反之则逆时针旋转。
+当起始角度小于旋转角度时，顺时针旋转;反之则逆时针旋转。
 
 #### 位移|translate
 
@@ -213,9 +211,26 @@ pivotXValue为动画相对于物件的X坐标的开始位置
 pivotXType为动画在Y轴相对于物件位置类型   
 pivotYValue为动画相对于物件的Y坐标的开始位置
 
-说明:伸缩尺寸四种属性值:0.0表示收缩到没有;1.0表示正常无伸缩;值小于1.0表示收缩;值大于1.0表示放大
+伸缩尺寸四种属性值:0.0表示收缩到没有;1.0表示正常无伸缩;值小于1.0表示收缩;值大于1.0表示放大
 
-总结:对于选择用代码实现还是在XML中来实现，看这个动画是否会被多次使用，如果多次使用的话就选用
+#### 组合|set
+
+在代码中
+
+```java
+AnimationSet set = new AnimationSet(true);
+set.addAnimation(alpha);
+set.addAnimation(rotate);
+set.addAnimation(translate);
+set.addAnimation(scale);
+View.startAnimation(set);
+```
+
+#### 使用XML中的动画效果
+使用AnimationUtils类的静态方法loadAnimation()来加载XML中的动画XML文件
+myAnimation= AnimationUtils.loadAnimation(this,R.anim.my_anim);
+
+- 总结:对于选择用代码实现还是在XML中来实现，看这个动画是否会被多次重复使用，如果是的话优先选择XML来实现，提高代码的复用性。
 
 ### 2.插值器|interpolator 
 
@@ -248,13 +263,6 @@ OvershottInterpolator 超越，最后超出目的值然后缓慢改变到目的�
 
 ### 3.方法介绍
 
-## SVG|矢量动画
-
-### 1.先看效果
-
-### 2.代码实现
-
-### 3.方法介绍
 
 [API](https://developer.android.com/reference/android/view/animation/Animation.html)
 
