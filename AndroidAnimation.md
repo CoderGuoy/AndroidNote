@@ -265,10 +265,112 @@ OvershottInterpolator 超越，最后超出目的值然后缓慢改变到目的�
 
 ### 1.先看效果
 
-### 2.代码实现
-
-### 3.方法介绍
+![](https://github.com/CoderGuoy/Android-Material-Design/blob/master/screenshots/propertyanimator.gif)
 
 
-[API](https://developer.android.com/reference/android/view/animation/Animation.html)
+### 2.代码实现及方法介绍
 
+通过ObjectAnimator的静态工厂方法，创建一个ObjectAnimator对象
+第一个参数:需要操控的View
+第二个参数:要操控的属性
+第三个参数:可变数组参数
+
+```java
+
+        //alpha:透明度 默认值是1（不透明），0代表完全透明（不可见）
+        ObjectAnimator alpha = ObjectAnimator.ofFloat(bindingView.imageviewMove, "alpha", 1, 0, 1);
+        
+        //scaleX和scaleY：围绕支点进行2D缩放 0是缩放到无，1是本身大小
+        ObjectAnimator scaleX = ObjectAnimator.ofFloat(bindingView.imageviewMove, "scaleX", 1f, 1.4f, 1f);
+        ObjectAnimator scaleY = ObjectAnimator.ofFloat(bindingView.imageviewMove, "scaleY", 1f, 1.4f, 1f);
+        
+        //translationX和translationY:控制View在布局中的位置，可以理解为位移
+        ObjectAnimator translateX = ObjectAnimator.ofFloat(bindingView.imageviewMove, "translationX", 0, -1080, 0);
+        ObjectAnimator translateY = ObjectAnimator.ofFloat(bindingView.imageviewMove, "translationY", 0, -1920, 0);
+        
+        //rotation、rotationX和rotationY: 控制View围绕支点的2D和3D旋转
+        ObjectAnimator rotation = ObjectAnimator.ofFloat(bindingView.imageviewMove, "rotation", 0, 60, 0);
+        ObjectAnimator rotationX = ObjectAnimator.ofFloat(bindingView.imageviewMove, "rotationX", 0, 60, 0);
+        ObjectAnimator rotationY = ObjectAnimator.ofFloat(bindingView.imageviewMove, "rotationY", 0, 60, 0);
+        
+        //组合动画
+        AnimatorSet set = new AnimatorSet();
+        set.playToghter() 同时执行多个
+        set.after(Animator anim) 将现有动画插入到传入的动画之后执行
+        set.after(long delay) 将现有动画延迟指定毫秒后执行
+        set.before(Animator anim) 将现有动画插入到传入的动画之前执行
+        set.with(Animator anim) 将现有动画和传入的动画同时执行
+        
+```
+Duration 动画的持续时间，默认300ms
+
+RRepeatCount 重复次数
+
+一个完整的动画具有Start、Repeat、End、Canle四个过程，通过Android提供的接口，可以很方便地监听这四个事件
+```java
+animator.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+                
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        });
+```
+
+大部分的时候，我们都只关心onAnimationEnd事件，所以Android还提供了另一个监听，定制我们特殊的需求
+
+```java
+animator.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                super.onAnimationEnd(animation);
+            }
+        });
+```
+
+### Android布局动画
+
+所谓布局动画是指所用在ViewGroup上，给ViewGroup增加View时添加一个动画过渡效果。
+下面举个例子，给页面的跟布局添加，先看效果图
+
+![](https://github.com/CoderGuoy/Android-Material-Design/blob/master/screenshots/overallanimation.gif)
+
+```java
+        RelativeLayout rl = (RelativeLayout) findViewById(R.id.relativelayout);
+        //设置过度动画
+        ScaleAnimation scale = new ScaleAnimation(0, 1, 0, 1);
+        scale.setDuration(800);
+        //设置布局动画的显示属性 LayoutAnimationController参数(需要作用的动画，每个子View显示的Delay时间)
+        LayoutAnimationController lac = new LayoutAnimationController(scale, 0.5f);
+        //当delay时间不为0时，可以设置子View的显示顺序 顺序-NORMAL 随机-RANDOM 反序REVERSE
+        lac.setOrder(LayoutAnimationController.ORDER_NORMAL);
+        rl.setLayoutAnimation(lac);
+```
+
+
+### [完整代码点我下载](https://github.com/CoderGuoy/Coder)
+
+## LICENSE 
+
+部分内容参考 《Android群英传》 徐宜生，仅做学习交流，如有侵权，请及时联系我
+
+[谷歌官方API](https://developer.android.com/reference/android/view/animation/Animation.html)
+
+## Thank you
+
+- 以上仅本人学习中遇到的问题，如有更多意见欢迎随时交流 [issues](https://github.com/CoderGuoy/MetalDesign/issues/1)
+- email:andriodguoy@gmail.com(安卓的单词不是我打错了，是不允许使用，故i和o位置调换了)
