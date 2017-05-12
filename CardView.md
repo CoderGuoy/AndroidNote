@@ -1,6 +1,8 @@
 ## Android 5.0新控件 CardView 介绍及使用详情
 
-> CardView:一个具有圆角的背景和阴影的FrameLayout
+> A FrameLayout with a rounded corner background and shadow
+
+> 一个具有圆角的背景和阴影的FrameLayout
 
 先上图
 
