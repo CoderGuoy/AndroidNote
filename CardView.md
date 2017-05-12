@@ -6,7 +6,7 @@
 
 先上图
 
-![]()
+![](http://img.blog.csdn.net/20170513004723383?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbGVuZ3h1ZWNoaXd1MTMxNA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
 
 ### 使用方法
 
@@ -58,7 +58,7 @@ Cards一般都是可点击的，为此我们使用了android:foreground属性并
 
 官网 [Material motion](https://material.google.com/motion/material-motion.html#) 部分对交互动作规范的指导，Cards、Button等视图应该有一个触摸抬起（lift-on-touch）的交互效果，也就是在三维立体空间上的Z轴发生位移，从而产生一个阴影加深的效果，与Ripple效果共同使用,如效果图所示
 
-![]()
+![](http://img.blog.csdn.net/20170513004756290?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbGVuZ3h1ZWNoaXd1MTMxNA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
 
 实现这个效果也很简单，可以在 res/drawable 目录下建立一个 lift_on_touch.xml 文件
 
