@@ -326,5 +326,14 @@ Ok,我们已经深入研究鸭子模拟器的设计，该是探出睡眠，呼�
 
 总结：此模式可以在运行时动态的改变行为，大大的提高了代码的灵活性！
 
+### [完整代码点我下载](https://github.com/CoderGuoy/Coder)
 
+## LICENSE 
+
+学习内容参考《Head First 设计模式》，仅做学习交流，如有侵权，请及时联系我
+
+## Thank you
+
+- 以上仅本人学习中遇到的问题，如有更多意见欢迎随时交流 [issues](https://github.com/CoderGuoy/MetalDesign/issues/1)
+- email:andriodguoy@gmail.com(安卓的单词不是我打错了，是不允许使用，故i和o位置调换了)
 
