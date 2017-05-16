@@ -1,4 +1,4 @@
-## Android Material Design 风格之 FloatingActionButton | 悬浮按钮 介绍及使用详情
+## Android 5.0新控件 FloatingActionButton | 悬浮按钮 介绍及使用详情
 
 extends ImageView
 
