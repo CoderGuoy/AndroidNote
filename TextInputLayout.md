@@ -1,4 +1,4 @@
-## Android Material Design 风格之 TextInputLayout | 文字输入布局 介绍及使用详情
+## Android 5.0新控件 TextInputLayout | 文字输入布局 介绍及使用详情
 
 extends LinearLayout
 
