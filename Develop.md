@@ -10,7 +10,7 @@
 
 android 5.0新控件|design widget
 
-AppBarLayout
+AppBarLayout |bingo
 
 BottomSheetDialog
 
