@@ -7,3 +7,40 @@
 > [Android学习路线指南-任玉刚](http://blog.csdn.net/singwhatiwanna/article/details/49560409/)
 
 > [Android中文文档](https://developer.android.com/develop/index.html)
+
+android 5.0新控件|design widget
+
+AppBarLayout
+
+BottomSheetDialog
+
+CollapsingToolbarLayout
+
+CoordinatorLayout |bingo
+
+FloatingActionButton |bingo
+
+NavigationView
+
+Snackbar
+
+TabLayout |bingo
+
+TextInputLayout |binggo
+
+android 5.0新特性
+
+Palette
+
+android 5.0新控件|v7 widget
+
+ActionMenuView
+
+PopupMenu
+
+SearchView
+
+toolbar
+
+
+
