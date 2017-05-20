@@ -2,7 +2,7 @@
 
 extends FrameLayout
 
-先让我们来看下Google对这个组件的定义
+先让我们来看下Google对这个组件的定义(英语好的同学请忽略我的翻译)
 
 > CollapsingToolbarLayout is a wrapper for Toolbar which implements a collapsing app bar. It is designed to be used as a direct child of a AppBarLayout. 
 CollapsingToolbarLayout contains the following features:
@@ -13,17 +13,25 @@ CollapsingToolbarLayout 是一个包裹 Toolbar 来实现折叠的app bar.它直
 > A title which is larger when the layout is fully visible but collapses and becomes smaller as the layout is scrolled off screen. You can set the title to display via setTitle(CharSequence). 
 The title appearance can be tweaked via the collapsedTextAppearance and expandedTextAppearance attributes.
 
-
+标题哪个更大当布局完全可见但是折叠时和布局滚动关闭屏幕变得更小，你可以通过设置标题通过 setTitle(CharSequence)
+标题外观可以通过 CollapsedTitleTextAppearance 和 expandedTieleTextAppearance 来设置
 
 #### Content scrim | 内容纱幕
 A full-bleed scrim which is show or hidden when the scroll position has hit a certain threshold. You can change this via setContentScrim(Drawable).
+
+一个显示或隐藏的纱幕当它滚动到一个指定的阈值，可以设置这个内容纱幕 setContentScrim
 
 #### Status bar scrim | 状态栏纱幕
 A scrim which is show or hidden behind the status bar when the scroll position has hit a certain threshold. You can change this via setStatusBarScrim(Drawable). 
 This only works on LOLLIPOP devices when we set to fit system windows.
 
+一个显示或隐藏的纱幕当屏幕滚动到指定阈值时的状态栏后面，你可以改变这个状态栏 setStatusBarScrim
+这个仅适用于5.0以上的版本并且设置了属性fitSystemWindows 为 true的情况下
+
 #### Parallax scrolling children
 Child views can opt to be scrolled within this layout in a parallax fashion. See COLLAPSE_MODE_PARALLAX and setParallaxMultiplier(float).
+
+
 
 #### Pinned position children
 Child views can opt to be pinned in space globally. This is useful when implementing a collapsing as it allows the Toolbar to be fixed in place even though this layout is moving. 
