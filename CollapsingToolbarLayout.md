@@ -44,7 +44,8 @@ This can interfere with any views which you add.
 
 注意：不要手动在运行时添加视图工具栏.我们将添加一个"虚拟视图"在Toolbar,使我们可以能够制定出标题空间.你可以添加认识View在这个接口
 
-上图
+先看效果图
+
 ![](https://github.com/CoderGuoy/AndroidNote/blob/master/screenshots/Coordinatorlayout00.gif)
 
 ### 使用方法
@@ -136,7 +137,7 @@ dependencies {
     }
 ```
 
-- OK，这就完成了如效果图上的效果，可以自己尝试一下，下面贴上一些可以自己定制需求常用的方法
+OK，这就完成了如效果图上的效果，可以自己尝试一下，下面贴上一些可以自己定制需求常用的方法
 
 collapsedTitleGravity | 设置折叠后的标题位置
 
@@ -152,7 +153,7 @@ layout_scrollFlags | 设置折叠方式，同[CoordinatorLayout]()的scrollFlags
 
 ### 总结
 
-CoolapsingToolbarLayout主要是包括Toolbar使用更多的效果，状态栏动态改变颜色使用时需要主要版本和设置fitsystemwindow属性
+CoolapsingToolbarLayout主要是包括Toolbar使用更多的效果，状态栏动态改变颜色使用时需要注意android版本为5.0以上和设置fitsystemwindow属性
 
 更多方法查看[官方API](https://developer.android.com/reference/android/support/design/widget/CollapsingToolbarLayout.html)
 
