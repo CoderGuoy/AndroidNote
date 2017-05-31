@@ -10,23 +10,23 @@
 
 android 5.0新控件|design widget
 
-AppBarLayout |bingo
+- AppBarLayout 
 
 BottomSheetDialog
 
-CollapsingToolbarLayout
+- CollapsingToolbarLayout
 
-CoordinatorLayout |bingo
+- CoordinatorLayout 
 
-FloatingActionButton |bingo
+- FloatingActionButton 
 
 NavigationView
 
 Snackbar
 
-TabLayout |bingo
+- TabLayout 
 
-TextInputLayout |binggo
+- TextInputLayout 
 
 android 5.0新特性
 
