@@ -12,7 +12,7 @@ android 5.0新控件|design widget
 
 - AppBarLayout 
 
-BottomSheetDialog
+- BottomSheetDialog
 
 - CollapsingToolbarLayout
 
