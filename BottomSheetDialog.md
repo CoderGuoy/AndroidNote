@@ -85,7 +85,6 @@ dependencies {
 
         bsd1 = new BottomSheetDialog(this);
         bsd1.setContentView(view);
-        bsd1.setCanceledOnTouchOutside(false);
 
     }
 
