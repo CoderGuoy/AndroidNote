@@ -157,7 +157,7 @@ CoolapsingToolbarLayout主要是包括Toolbar使用更多的效果，状态栏�
 
 更多方法查看[官方API](https://developer.android.com/reference/android/support/design/widget/CollapsingToolbarLayout.html)
 
-### 完整代码点我下载[GigHub](https://github.com/CoderGuoy/Coder)
+### 完整代码点我下载[GitHub](https://github.com/CoderGuoy/Coder)
 
 ## Thank you
 
