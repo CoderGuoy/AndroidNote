@@ -1,12 +1,5 @@
-# Android控件架构于自定义控件
+# Android XML绘图之 Shape
 
-## View的测量
+> 通过Shape可以在XML中绘制各种形状，先展示下Shape所支持的参数
 
-onMeasure()方法中进行测量，MeasureSpec类帮助测量View，测量模式:
-
-- EXACTLY 精确模式 具体
-
-- AT_MOST
-
-- UNSPECIFIED
 
