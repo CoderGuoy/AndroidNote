@@ -2,7 +2,11 @@
 
 一般用shape定义的xml文件存放在drawable目录下，若项目没有该目录则新建一个，而不要将它放到drawable-hdpi等目录中
 
-> 通过Shape可以在XML中绘制各种形状，可以定义下面四种类型的形状，通过android:shape属性指定：
+> 通过Shape可以在XML中绘制各种形状，可以定义下面四种类型的形状
+
+![](https://github.com/CoderGuoy/AndroidNote/blob/master/screenshots/shape.png)
+
+下面是shape的全部属性
 
 ```java
 <?xml version="1.0" encoding="utf-8"?>
@@ -29,8 +33,7 @@
         
     <!--设置形状填充的颜色，只有android:color一个属性-->
     <solid android:color="@color/green"/>
-    
-    
+        
     <!--设置内容与形状边界的内间距，可分别设置左右上下的距离-->
     <padding
         android:bottom="integer"//下内间距
@@ -54,12 +57,12 @@
         android:useLevel 如果为true，则可在LevelListDrawable中使用
         />
 </shape>
-
 ```
+
 ## Rectangle
 rectangle是默认的形状，也是用得最多的形状，一些文字背景、按钮背景、控件或布局背景等,这里用了上面几乎全部的属性
 
-![]()
+![](https://github.com/CoderGuoy/AndroidNote/blob/master/screenshots/shape_rect.png)
 
 下面是虚线矩形的代码
 ```java
@@ -92,7 +95,7 @@ rectangle是默认的形状，也是用得最多的形状，一些文字背景�
 ## Oval
 oval用来画椭圆，而在实际应用中，更多是画正圆，比如消息提示，圆形按钮等，下图是一些例子
 
-![]()
+![](https://github.com/CoderGuoy/AndroidNote/blob/master/screenshots/shape_oval.png)
 
 下面是渐变的代码
 ```java
@@ -137,7 +140,7 @@ line主要用于画分割线，是通过stroke和size特性组合来实现的
 - 线左右两边会留有空白间距，线越粗，空白越大
 - 引用虚线的view需要添加属性android:layerType，值设为"software"，否则显示不了虚线
 
-![]()
+![](https://github.com/CoderGuoy/AndroidNote/blob/master/screenshots/shape_line.png)
 
 下面是虚线的代码
 ```java
@@ -168,7 +171,7 @@ shape根元素有些属性只适用于ring类型，先过目下这些属性吧�
 - android:useLevel 一般为false，否则可能环形无法显示，只有作为LevelListDrawable使用时才设为true
 
 
-![]()
+![](https://github.com/CoderGuoy/AndroidNote/blob/master/screenshots/shape_ring.png)
 
 下面是第四个换的代码
 ```java
@@ -186,7 +189,12 @@ shape根元素有些属性只适用于ring类型，先过目下这些属性吧�
         android:color="#ff0000"/>
 </shape>
 ```
+## 完整代码点我下载[GitHub](https://github.com/CoderGuoy/Coder)
 
+## Thank you
+
+- 以上仅本人学习中遇到的问题，如有更多意见欢迎随时交流 [issues](https://github.com/CoderGuoy/MetalDesign/issues/1)
+- email:andriodguoy@gmail.com(安卓的单词不是我打错了，是不允许使用，故i和o位置调换了)
 
 
 
