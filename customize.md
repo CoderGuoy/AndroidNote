@@ -1,6 +1,4 @@
-# Android XML绘图
-
-## Shape
+# Android XML绘图之 Shape
 
 一般用shape定义的xml文件存放在drawable目录下，若项目没有该目录则新建一个，而不要将它放到drawable-hdpi等目录中
 
@@ -59,7 +57,8 @@
 
 ```
 
-Line 
+## Line 
+
 画线时，有几点特性必须要知道的：
 - 只能画水平线，画不了竖线
 - 线的高度是通过stroke的android:width属性设置的
@@ -69,7 +68,8 @@ Line
 - 线左右两边会留有空白间距，线越粗，空白越大
 - 引用虚线的view需要添加属性android:layerType，值设为"software"，否则显示不了虚线
 
-Ring
+## Ring
+
 首先，shape根元素有些属性只适用于ring类型，先过目下这些属性吧：
 - android:innerRadius 内环的半径
 - android:innerRadiusRatio 浮点型，以环的宽度比率来表示内环的半径，默认为3，表示内环半径为环的宽度除以3，该值会被android:innerRadius覆盖
