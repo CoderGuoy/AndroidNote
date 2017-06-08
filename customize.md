@@ -56,8 +56,77 @@
 </shape>
 
 ```
+## Rectangle
+rectangle是默认的形状，也是用得最多的形状，一些文字背景、按钮背景、控件或布局背景等,这里用了上面几乎全部的属性
+
+![]()
+
+下面是虚线矩形的代码
+```java
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+       android:shape="rectangle">
+       
+    <!-- corners设置圆角，只适用于rectangle -->
+    <corners android:radius="200dp"/>
+    
+    <!-- solid指定形状的填充色，只有android:color一个属性 -->
+    <solid android:color="@color/blue"/>
+    
+    <!-- padding设置内容区域离边界的间距 -->
+    <padding
+        android:bottom="10dp"
+        android:left="10dp"
+        android:right="10dp"
+        android:top="10dp"/>
+        
+   <!-- stroke设置描边 -->
+    <stroke
+        android:width="1dp"
+        android:color="@color/colorBlack"
+        android:dashGap="10dp"
+        android:dashWidth="10dp"/>
+</shape>
+```
+
+## Oval
+oval用来画椭圆，而在实际应用中，更多是画正圆，比如消息提示，圆形按钮等，下图是一些例子
+
+![]()
+
+下面是渐变的代码
+```java
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+       android:shape="oval">
+       
+    <!-- size设置形状的大小 -->
+    <size
+        android:width="50dp"
+        android:height="50dp"/>
+        
+    <!-- padding设置内间距 -->
+    <padding
+        android:bottom="5dp"
+        android:left="5dp"
+        android:right="5dp"
+        android:top="5dp"/>
+    
+    <!-- gradient设置渐变 -->
+    <gradient
+        android:endColor="@color/green"
+        android:gradientRadius="20dp"
+        android:type="radial"/>
+
+</shape>
+```
+
+注意
+- size: 设置形状默认的大小，可设置宽度和高度
+- 使用radial渐变时，必须指定渐变的半径，即android:gradientRadius属性
 
 ## Line 
+line主要用于画分割线，是通过stroke和size特性组合来实现的
 
 画线时，有几点特性必须要知道的：
 - 只能画水平线，画不了竖线
@@ -68,14 +137,55 @@
 - 线左右两边会留有空白间距，线越粗，空白越大
 - 引用虚线的view需要添加属性android:layerType，值设为"software"，否则显示不了虚线
 
+![]()
+
+下面是虚线的代码
+```java
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+       android:shape="line">
+       
+    <!-- 形状的高度 -->
+    <size android:height="4dp"/>
+    
+    <!-- 实际显示的线 -->
+    <stroke
+        android:width="2dp"
+        android:color="@color/yello"
+        android:dashGap="5dp"
+        android:dashWidth="10dp"/>
+
+</shape>
+```
+
 ## Ring
 
-首先，shape根元素有些属性只适用于ring类型，先过目下这些属性吧：
+shape根元素有些属性只适用于ring类型，先过目下这些属性吧：
 - android:innerRadius 内环的半径
 - android:innerRadiusRatio 浮点型，以环的宽度比率来表示内环的半径，默认为3，表示内环半径为环的宽度除以3，该值会被android:innerRadius覆盖
 - android:thickness 环的厚度
 - android:thicknessRatio 浮点型，以环的宽度比率来表示环的厚度，默认为9，表示环的厚度为环的宽度除以9，该值会被android:thickness覆盖
 - android:useLevel 一般为false，否则可能环形无法显示，只有作为LevelListDrawable使用时才设为true
+
+
+![]()
+
+下面是第四个换的代码
+```java
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+       android:innerRadius="30dp"
+       android:shape="ring"
+       android:thickness="9dp"
+       android:useLevel="false">
+    <gradient
+        android:endColor="@color/red"
+        android:type="sweep"/>
+    <stroke
+        android:width="1dp"
+        android:color="#ff0000"/>
+</shape>
+```
 
 
 
