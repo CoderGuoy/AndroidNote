@@ -8,7 +8,7 @@ extends AppCompatDialog
 
 先看看效果
 
-![]()![]()
+![](https://github.com/CoderGuoy/AndroidNote/blob/master/screenshots/bottomsheetdialog.gif)![](https://github.com/CoderGuoy/AndroidNote/blob/master/screenshots/bottomsheetdialog2.gif)
 
 对于弹出的内容完全由自己来掌控,想实现什么样子就实现什么样子
 
