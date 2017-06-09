@@ -10,6 +10,10 @@
 
 - [Keegan小钢](http://keeganlee.me/)
 
+- [GitYuan](http://gityuan.com/)
+
+- [drakeet](https://drakeet.me/)
+
 android 5.0新控件|design widget
 
 NavigationView
