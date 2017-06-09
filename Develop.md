@@ -1,5 +1,3 @@
-# Android-Material-Design
-
 > [Material Design 中文版](http://design.1sters.com/)
 
 > [自学android资源](http://123.w3cschool.cn/navandroid_study)
@@ -8,25 +6,15 @@
 
 > [Android中文文档](https://developer.android.com/develop/index.html)
 
+## 优秀博客
+
+- [Keegan小钢](http://keeganlee.me/)
+
 android 5.0新控件|design widget
-
-- AppBarLayout 
-
-- BottomSheetDialog
-
-- CollapsingToolbarLayout
-
-- CoordinatorLayout 
-
-- FloatingActionButton 
 
 NavigationView
 
 Snackbar
-
-- TabLayout 
-
-- TextInputLayout 
 
 android 5.0新特性
 
