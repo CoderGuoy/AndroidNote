@@ -1,15 +1,15 @@
 ## Material Design动画 Reveal Effect|揭示效果
 
-![]()
+![](https://github.com/CoderGuoy/AndroidNote/blob/master/screenshots/RevealEffect.gif)
 
 ### 核心方法
 ```java
   ViewAnimationUtils.createCircularReveal(
-    View view,//目标view
+    View view,//视图将被剪辑到动画圈子
     int centerX,//开始动画的起点x坐标(相对于目标view而言)
     int centerY,//开始动画的起点y坐标(相对于目标view而言)
-    float startRadius,//初始半径
-    float endRadius//结束半径
+    float startRadius,//动画圆的起始半径
+    float endRadius//动画圆的半径结束
   );
 ```
 
