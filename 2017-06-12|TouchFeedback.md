@@ -2,7 +2,7 @@
 
 先看图再说
 
-![]()
+![](https://github.com/CoderGuoy/AndroidNote/blob/master/screenshots/touchfeedback1.gif)
 
 > Touch Feedback 使用颜色和照明来响应触摸，加强手势的结果行为。每当用户触摸您应用中的可操作区域时，提供可视化响应。这可以让用户知道哪个对象被触摸，并且您的应用程序正在“听”。
 
@@ -19,7 +19,7 @@
  <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- API 21 theme customizations can go here. -->
         <item name="android:colorControlHighlight">#ff0000</item>
-    </style>
+ </style>
 ```
 注意：设置Ripple的View必须具有foucesable或clickable为true才会有效果
 
@@ -48,7 +48,7 @@
 1.如果ripple设置了radius(波纹大小),则触摸显示的波纹为设置的固定大小，不会为手指触摸点开始显示
 2.边界的颜色如果没有透明度，为纯色的话，会遮盖其它无边界的波纹，如图
 
-![]()
+![](https://github.com/CoderGuoy/AndroidNote/blob/master/screenshots/touchfeedback2.gif)
 
 #### 代码如下
 ```java
