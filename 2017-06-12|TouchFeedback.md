@@ -1,4 +1,4 @@
-## Touch Feedback|Material Design动画 触摸反馈
+## Material Design动画 Touch Feedback| 触摸反馈
 
 > Touch Feedback 使用颜色和照明来响应触摸，加强手势的结果行为。每当用户触摸您应用中的可操作区域时，提供可视化响应。这可以让用户知道哪个对象被触摸，并且您的应用程序正在“听”。
 
