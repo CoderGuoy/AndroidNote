@@ -18,6 +18,10 @@
 
 - [drakeet](https://drakeet.me/)
 
+- [老罗](http://blog.csdn.net/Luoshengyang)
+
+- [医生](http://blog.csdn.net/eclipsexys)
+
 https://www.diycode.cc/topics/409
 
 android 5.0新控件|design widget
