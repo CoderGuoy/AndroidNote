@@ -1,4 +1,4 @@
-## Material Design动画 Reveal Effect|揭示效果
+## Material Design动画 Reveal Effect | 揭示效果
 
 ![](https://github.com/CoderGuoy/AndroidNote/blob/master/screenshots/RevealEffect.gif)
 
