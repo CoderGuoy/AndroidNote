@@ -1,4 +1,4 @@
-## Material Design动画 Curved motion|曲线运动
+## Material Design动画 Curved motion | 曲线运动
 
 ### 1.
 
