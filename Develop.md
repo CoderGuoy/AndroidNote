@@ -1,10 +1,12 @@
 > [Material Design 中文版](http://design.1sters.com/)
 
+> [Android中文文档](https://developer.android.com/develop/index.html)
+
+> [Android Studio](http://www.android-studio.org/index.php)
+
 > [自学android资源](http://123.w3cschool.cn/navandroid_study)
 
 > [Android学习路线指南-任玉刚](http://blog.csdn.net/singwhatiwanna/article/details/49560409/)
-
-> [Android中文文档](https://developer.android.com/develop/index.html)
 
 ## 优秀博客
 
