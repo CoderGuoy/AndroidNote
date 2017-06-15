@@ -2,11 +2,27 @@
 
 > 在materialDesign中，动画是依赖于时间插值器和空间运动模式的。但是在Android5.0或者5.0以后的版本，用户可以自定义时间曲线和曲线运动模式
 
-### 1.
+![]()
 
-####  1.
+### 1.PathInterpolator
 
-####  2.
+PathInterpolator类是一个新的插值器，它基于贝塞尔曲线或Path对象。这个插值器在1*1 的正方形上定义了曲线运动，以（0，0）和（1，1）点作为锚点，控制点则通过构造函数来指定，也可以使用xml文件的定义一个路径插值器
+
+####  1.构造方法
+
+- PathInterpolator(Path path)
+
+- 创建任意Path
+
+- PathInterpolator(float controlX, float controlY)
+
+- 创建二阶贝塞尔曲线
+
+- PathInterpolator(float controlX1, float controlY1, float controlX2, float controlY2)
+
+- 创建三阶贝塞尔曲线
+
+####  2.XML中
 
 ### 2.
 
