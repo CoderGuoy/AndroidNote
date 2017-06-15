@@ -2,7 +2,7 @@
 
 > 在materialDesign中，动画是依赖于时间插值器和空间运动模式的。但是在Android5.0或者5.0以后的版本，用户可以自定义时间曲线和曲线运动模式
 
-![]()
+![](https://github.com/CoderGuoy/AndroidNote/blob/master/screenshots/curvedmotion.gif)
 
 ### PathInterpolator
 
