@@ -33,6 +33,8 @@
 
 - 代码：使用AnimationInflater.loadStateListAnimator()方法读取，并且通过View.setStateListAnimator()方法分配动画到你的视图上
 
+注意：在代码中使用的时候要让视图具有onClick功能
+
 
 ### 完整代码点我下载[GitHub](https://github.com/CoderGuoy/Coder)
 
