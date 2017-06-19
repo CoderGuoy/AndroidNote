@@ -31,7 +31,7 @@
 
 - 布局：android:stateListAnimator属性将其分配给你的视图
 
-- 代码：使用AnimationInflater.loadStateListAnimator()方法，并且通过View.setStateListAnimator()方法分配动画到你的视图上
+- 代码：使用AnimationInflater.loadStateListAnimator()方法读取，并且通过View.setStateListAnimator()方法分配动画到你的视图上
 
 
 ### 完整代码点我下载[GitHub](https://github.com/CoderGuoy/Coder)
