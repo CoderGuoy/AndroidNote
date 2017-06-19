@@ -2,7 +2,7 @@
 
 > 可以根据View的可绘制状态定义一些可以在附件视图上运行的Animator,可以在具有<selector>元素的XML文件中定义.每个动画师都在嵌套的<item>元素中定义
 
-![]()
+![](https://github.com/CoderGuoy/AndroidNote/blob/master/screenshots/viewstatechange.gif)
 
 ### 1.定义一个XML资源selector
 ```java
