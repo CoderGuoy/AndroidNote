@@ -1,4 +1,4 @@
-## Material Design动画 Animate Vector Drawables|矢量图片动画
+## Material Design动画 Animated Vector Drawables|矢量图片动画
 
 > [AnimatedVectorDrawable](https://developer.android.com/reference/android/graphics/drawable/AnimatedVectorDrawable.html)类可以去创建一个矢量资源的动画
 
