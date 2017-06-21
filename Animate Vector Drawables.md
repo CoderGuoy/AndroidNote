@@ -2,7 +2,11 @@
 
 > [AnimatedVectorDrawable](https://developer.android.com/reference/android/graphics/drawable/AnimatedVectorDrawable.html)类可以去创建一个矢量资源的动画
 
+先看下效果图
+
 ![](https://github.com/CoderGuoy/AndroidNote/blob/master/screenshots/animatedvectordrawable_smile.gif)
+
+Animated Vector Drawables实现动画主要分三个步骤：1.画出SVG图片 2.画出动画变化路径 3.通过animated-vector将图片和动画连接起来
 
 ### 实现步骤(以实现悲伤变笑脸为例)
 
@@ -91,6 +95,11 @@ animator_mouth_smile.xml
                 android:valueType="pathType"/>
 ```
 
+propertyName指定控制的属性
+valueFrom和valueTo控制动画的起始值
+
+- 注意：propertyName的指定属性如果为pathData，name还需要添加一个属性valueType="pathTpye"来告诉系统进行pathData变换；类似的情况，可以使用rotation进行旋转动画，fillColor实现颜色动画，使用pathData进行形状、位置的变换
+
 #### 3.在res/drawable/下创建animated-vector元素的矢量资源动画
 
 animated_smile.xml
@@ -111,11 +120,26 @@ animated_smile.xml
 </animated-vector>
 ```
 
-### 2.
+- 这里需要注意的是target的name属性,必须与vector中需要作用的name属性保持一致，这样系统才能找到要实现动画的元素
 
-####  1.
+#### 4.所有的XML文件都准备好了以后，就可以在代码中控制SVG动画了
 
-####  2.
+先将AnimatedVectorDrawable XML 文件（animated_smile.xml）给一个ImageView设置背景
+
+```java
+      <ImageView
+          android:id="@+id/image_smile"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_centerInParent="true"
+          android:src="@drawable/animated_smile"/>
+```
+
+在代码中 ((Animatable) imageView.getDrawable()).start();
+
+### 
+
+
 
 ### 完整代码点我下载[GitHub](https://github.com/CoderGuoy/Coder)
 
