@@ -6,7 +6,10 @@
 
 ![](https://github.com/CoderGuoy/AndroidNote/blob/master/screenshots/animatedvectordrawable_smile.gif)
 
-Animated Vector Drawables实现动画主要分三个步骤：1.画出SVG图片 2.画出动画变化路径 3.通过animated-vector将图片和动画连接起来
+> Animated Vector Drawables实现动画主要分三个步骤：<br/>
+- 1.画出SVG图片 
+- 2.画出动画变化路径 
+- 3.通过animated-vector将图片和动画连接起来
 
 ### 实现步骤(以实现悲伤变笑脸为例)
 
