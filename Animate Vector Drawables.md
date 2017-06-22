@@ -2,13 +2,13 @@
 
 > [AnimatedVectorDrawable](https://developer.android.com/reference/android/graphics/drawable/AnimatedVectorDrawable.html)类可以去创建一个矢量资源的动画
 
-先看下效果图
+先看效果图
 
-![](https://github.com/CoderGuoy/AndroidNote/blob/master/screenshots/animatedvectordrawable_smile.gif)
+![](https://github.com/CoderGuoy/AndroidNote/blob/master/screenshots/animatedvectordrawable_smile.gif)![](https://github.com/CoderGuoy/AndroidNote/blob/master/screenshots/animatedvectordrawable_heart_bonc.gif)
 
 > Animated Vector Drawables实现动画主要分三个步骤：<br/>
 - 1.画出SVG图片 
-- 2.画出动画变化路径 
+- 2.画出动画变化路径/条件 
 - 3.通过animated-vector将图片和动画连接起来
 
 ### 实现步骤(以实现悲伤变笑脸为例)
@@ -101,7 +101,14 @@ animator_mouth_smile.xml
 propertyName指定控制的属性
 valueFrom和valueTo控制动画的起始值
 
-- 注意：propertyName的指定属性如果为pathData，name还需要添加一个属性valueType="pathTpye"来告诉系统进行pathData变换；类似的情况，可以使用rotation进行旋转动画，fillColor实现颜色动画，使用pathData进行形状、位置的变换
+- 注意：propertyName的指定属性如果为pathData，name还需要添加一个属性valueType="pathTpye"来告诉系统进行pathData变换
+
+类似的情况：
+
+- rotation进行旋转动画
+- fillColor实现颜色动画 valueType="colorType"
+- pathData进行形状、位置的变换 valueType="pathData"
+- trimPathEnd与trimPathStart进行轨迹动画 valueType="floatType"
 
 #### 3.在res/drawable/下创建animated-vector元素的矢量资源动画
 
@@ -140,7 +147,13 @@ animated_smile.xml
 
 在代码中 ((Animatable) imageView.getDrawable()).start();
 
-### 
+
+
+### 总结
+
+- 变化的曲线如果使用弧线来实现，是无法实现路径变化的过程，所以需要用二阶贝塞尔
+
+- SVG动画可以实现简单的图形变换动画、轨迹动画，animated-vector目前还不能支持控制每个animator的执行时间和顺序
 
 
 
@@ -151,4 +164,3 @@ animated_smile.xml
 - 以上仅本人学习中遇到的问题，如有更多意见欢迎随时交流 [issues](https://github.com/CoderGuoy/MetalDesign/issues/1)
 - email:andriodguoy@gmail.com(安卓的单词不是我打错了，是不允许使用，故i和o位置调换了)
 
-http://blog.csdn.net/banzhuancaidao/article/details/51785274
