@@ -22,6 +22,8 @@
 
 - [医生](http://blog.csdn.net/eclipsexys)
 
+- [孤独狂饮](http://www.gdky005.com/)
+
 https://www.diycode.cc/topics/409
 
 android 5.0新控件|design widget
