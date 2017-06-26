@@ -24,6 +24,8 @@
 
 --------
 
+- [技术视界](http://blog.coderclock.com/)
+
 - [孤独狂饮](http://www.gdky005.com/)
 
 http://blog.csdn.net/xiong_it
