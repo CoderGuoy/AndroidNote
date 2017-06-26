@@ -32,6 +32,8 @@ http://blog.csdn.net/xiong_it
 
 https://www.diycode.cc/topics/409
 
+http://www.jcodecraeer.com/a/anzhuokaifa/androidkaifa/2017/0624/8110.html
+
 android 5.0新控件|design widget
 
 NavigationView
