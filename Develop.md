@@ -34,6 +34,8 @@ https://www.diycode.cc/topics/409
 
 http://www.jcodecraeer.com/a/anzhuokaifa/androidkaifa/2017/0624/8110.html
 
+https://juejin.im/post/5940e0f6128fe1006a0d6cd9
+
 android 5.0新控件|design widget
 
 NavigationView
