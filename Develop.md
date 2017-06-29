@@ -26,6 +26,8 @@
 
 --------
 
+- [天狗API](http://www.tngou.net/doc/)
+
 - [技术视界](http://blog.coderclock.com/)
 
 - [孤独狂饮](http://www.gdky005.com/)
