@@ -10,6 +10,10 @@
 
 > [Android学习路线指南-任玉刚](http://blog.csdn.net/singwhatiwanna/article/details/49560409/)
 
+## Jsoup
+
+- [文档](http://www.open-open.com/jsoup/selector-syntax.htm)
+
 ## 优秀博客
 
 - [干货集中营](http://gank.io/)
