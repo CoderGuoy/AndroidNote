@@ -61,15 +61,27 @@ PhatomReference 虚引用
 
 内存泄漏的例子：
 
-单例模式导致内存对象无法释放而导致内存泄漏——传入的上下文引用生命周期与单例的声明周期不一样
+单例模式导致内存对象无法释放而导致内存泄漏 —— 传入的上下文引用生命周期与单例的声明周期不一样，用Application的context就用Application的
 
+设置监听很容易出现内存泄露
+handler.post(callback)
+onDestroy(){
+	handler.removeCallback();
+}
 
+优化两个情况：
+	1.主动；平时
+	2.被动，很卡的时候  出现问题的时候。
 
+如果我们不知道代码内存泄露的情况，如何判断我们的项目里面有哪些是有内存泄露情况的？
 
+凭借工具结合自己的经验来判断。往往我们的app在某个时候或者某个操作以后会出现很卡的现象。
 
-### 完整代码点我下载[GitHub](https://github.com/CoderGuoy/Coder)
+看(读代码和猜)他们的生命周期是否一致(可以通过快照对比)，如果生命周期一致了肯定不是元凶
 
-## Thank you
+## Thank you [动脑学院](https://www.dongnaoedu.com/)
+
+[GitHub](https://github.com/CoderGuoy/Coder)
 
 - 以上仅本人学习中遇到的问题，如有更多意见欢迎随时交流 [issues](https://github.com/CoderGuoy/MetalDesign/issues/1)
 - email:coderguoy@gmail.com
