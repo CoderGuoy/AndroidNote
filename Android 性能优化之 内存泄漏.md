@@ -61,13 +61,77 @@ PhatomReference 虚引用
 
 内存泄漏的例子：
 
-单例模式导致内存对象无法释放而导致内存泄漏 —— 传入的上下文引用生命周期与单例的声明周期不一样，用Application的context就用Application的
+- 静态变量引起的内存泄露
+	当调用getInstance时，如果传入的context是Activity的context。只要这个单利没有被释放，那么这个
+	Activity也不会被释放一直到进程退出才会释放
+	```xml
+	public class CommUtil {
+	    private static CommUtil instance;
+	    private Context context;
+	    private CommUtil(Context context){
+		this.context = context;
+	    }
 
-设置监听很容易出现内存泄露
-handler.post(callback)
-onDestroy(){
-	handler.removeCallback();
-}
+	    public static CommUtil getInstance(Context mcontext){
+		if(instance == null){
+		    instance = new CommUtil(mcontext);
+		}
+		return instance;
+	    }
+	```
+	单例模式导致内存对象无法释放而导致内存泄漏 —— 传入的上下文引用生命周期与单例的声明周期不一样，用Application的context就用Application的
+	
+- 非静态内部类引起内存泄露
+	(包括匿名内部类)
+	错误的示范：
+	```xml
+	    public void loadData(){//隐士持有MainActivity实例。MainActivity.this.a
+		new Thread(new Runnable() {
+		    @Override
+		    public void run() {
+			while(true){
+			    try {
+				//int b=a;
+				Thread.sleep(1000);
+			    } catch (InterruptedException e) {
+				e.printStackTrace();
+			    }
+			}
+		    }
+		}).start();
+	    }
+	```
+	解决方案：
+	将非静态内部类修改为静态内部类。
+	（静态内部类不会隐士持有外部类）
+
+- 不需要用的监听未移除会发生内存泄露
+	例子1：
+        tv.setOnClickListener();//监听执行完回收对象
+        //add监听，放到集合里面
+        tv.getViewTreeObserver().addOnWindowFocusChangeListener(new ViewTreeObserver.OnWindowFocusChangeListener() {
+            @Override
+            public void onWindowFocusChanged(boolean b) {
+                //监听view的加载，view加载出来的时候，计算他的宽高等。
+                //计算完后，一定要移除这个监听
+                tv.getViewTreeObserver().removeOnWindowFocusChangeListener(this);
+            }
+        });
+
+	例子2：
+	SensorManager sensorManager = getSystemService(SENSOR_SERVICE);
+        Sensor sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ALL);
+        sensorManager.registerListener(this,sensor,SensorManager.SENSOR_DELAY_FASTEST);
+        //不需要用的时候记得移除监听
+        sensorManager.unregisterListener(listener);
+	
+- 资源未关闭引起的内存泄露情况
+	比如：BroadCastReceiver、Cursor、Bitmap、IO流、自定义属性attribute attr.recycle()回收
+	当不需要使用的时候，要记得及时释放资源。否则就会内存泄露
+
+- 无限循环动画
+	没有在onDestroy中停止动画，否则Activity就会变成泄露对象。
+	比如：轮播图效果
 
 优化两个情况：
 	1.主动；平时
