@@ -28,6 +28,8 @@
 
 - [医生](http://blog.csdn.net/eclipsexys)
 
+- [gcssloop](http://www.gcssloop.com/)
+
 --------
 
 - [技术视界](http://blog.coderclock.com/)
