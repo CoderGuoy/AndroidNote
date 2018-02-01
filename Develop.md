@@ -50,25 +50,9 @@ https://www.diycode.cc/topics/409
 
 [框架排行榜](http://www.cnblogs.com/jincheng-yangchaofan/articles/7018780.html)
 
-android 5.0新控件|design widget
+## 面试
 
-NavigationView
-
-Snackbar
-
-android 5.0新特性
-
-Palette
-
-android 5.0新控件|v7 widget
-
-ActionMenuView
-
-PopupMenu
-
-SearchView
-
-toolbar
+- [](http://blog.csdn.net/P5dEyT322JACS/article/details/79063174)
 
 
 
