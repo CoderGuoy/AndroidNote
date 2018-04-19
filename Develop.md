@@ -48,6 +48,8 @@ https://www.diycode.cc/topics/409
 
 [SVG](http://www.cnblogs.com/yuhanghzsd/p/5466846.html)
 
+[二维码扫描优化](http://iluhcm.com/2016/01/08/scan-qr-code-and-recognize-it-from-picture-fastly-using-zxing)
+
 [框架排行榜](http://www.cnblogs.com/jincheng-yangchaofan/articles/7018780.html)
 
 ## 面试
