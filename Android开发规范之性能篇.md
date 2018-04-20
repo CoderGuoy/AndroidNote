@@ -160,7 +160,8 @@ context.sendBroadcast(v1);
     TextView tv;
     void onCreate(Bundle savedInstanceState){
       supter.onCreate(savedInstanceState);
-      setContentView(
+      setContentView(R.layout.set_username);
+      tv = (TextView)findViewById(R.id.username);
 ```
 
 
