@@ -2,9 +2,9 @@
 
 ## Android基本组件
 
-#### 1.Activity间的数据通信，对于数据量比较大的，避免使用Intent+Parcelable的方式，可以考虑EventBus等代替方案，避免造成TransactionTooLargeException
+### 1.Activity间的数据通信，对于数据量比较大的，避免使用Intent+Parcelable的方式，可以考虑EventBus等代替方案，避免造成TransactionTooLargeException
 
-#### 2.Activity间通过隐式Intent的跳转，在发出Intent之前必须通过resolveActivity检查，避免找不到合适的调用组件，造成ActivityNotFoundException的异常
+### 2.Activity间通过隐式Intent的跳转，在发出Intent之前必须通过resolveActivity检查，避免找不到合适的调用组件，造成ActivityNotFoundException的异常
 正例：
 ```java
   public void viewUrl(String url,String mimeType){
@@ -27,7 +27,7 @@
   intent.setAction("com.great.activity_intent.Intent_Demo1_Result3");
 ```
 
-#### 3.避免在Service#onStartCommand()/onBind()方法中执行耗时操作，如果确实有需求，应改用IntentService或采用其它异步机制完成
+### 3.避免在Service#onStartCommand()/onBind()方法中执行耗时操作，如果确实有需求，应改用IntentService或采用其它异步机制完成
 正例：
 ```java
   public class MainActivity extends Activity
@@ -65,8 +65,8 @@
          }
 ```
 
-#### 4.避免在BroadcastReceiver#onReceive()中执行好使操作，如果有耗时工作，应该创建IntentService完成，而不应该在BroadcastReceiver内创建子线程去做
-说明：
+### 4.避免在BroadcastReceiver#onReceive()中执行好使操作，如果有耗时工作，应该创建IntentService完成，而不应该在BroadcastReceiver内创建子线程去做
+#### 说明：
 #### 由于该方法是在主线程执行，如果执行耗时操作会导致UI不流畅，可以使用IntentService、创建HandlerThread或者调用Context#registerReceiver(BroadcastReceiver，IntentFilter，String，Handler)方法等方式，在其他Wroker线程执行onReceive方法。BroadcastReceiver#onReceive()方法耗时超过10秒钟，可能会被系统杀死。
 正例：
 ```java
@@ -94,8 +94,8 @@
   };
 ```
 
-#### 5.避免使用隐私Intent广播敏感信息，信息可能被其他注册了对应BroadcastReceiver的APP接收
-说明：
+### 5.避免使用隐私Intent广播敏感信息，信息可能被其他注册了对应BroadcastReceiver的APP接收
+#### 说明：
 #### 通过Context#sendBroadcase()发送的隐式广播会被所感兴趣的receiver接收，恶意应用注册监听该广播的receiver可能会获取到Intent中传递的敏感信息，并进行其他危险操作。如果发送的广播为使用Context#sendOrderedBroadcast()方法发送的有序广播，优先级较高的恶意receiver可能直接丢弃改广播，造成服务不可用，或者向广播结束塞入恶意数据。
 #### 如果广播仅限应用内，则可以使用LocalBroadcastManager#sendBroadcast()实现，避免敏感信息外泄和Intent拦截的风险
 正例：
@@ -135,7 +135,7 @@ context.sendBroadcast(v1);
   }
 ```
 
-#### 6.不要在Android的Application对象中缓存数据。基础组件之间的数据共享使用Intent等机制，也可以使用SharedPreferences等数据持久化机制
+### 6.不要在Android的Application对象中缓存数据。基础组件之间的数据共享使用Intent等机制，也可以使用SharedPreferences等数据持久化机制
 反例：
 ```java
   class MyApplication extends Application{
@@ -162,15 +162,230 @@ context.sendBroadcast(v1);
       supter.onCreate(savedInstanceState);
       setContentView(R.layout.set_username);
       tv = (TextView)findViewById(R.id.username);
+    }
+    void onResume(){
+      supter.onResume();
+      MyApplication app = (MyApplication)getApplication();
+      tv.setText("Welcome back!" + app.getUsername().tuUpperCase());
+    }
+  }
 ```
 
+### 7.使用Adapter的时候，如果你使用了ViewHolder做缓存，在getView()的方法中无论这项convertView的每个子控件是否需要设置属性（比如某个TextView设置的文本可能为null，某个按钮的背景色为透明，某控件的颜色为透明等），都需要为其显式设置属性（Textview的文本为空也需要设置setText("")，背景透明也需要设置），否则在滑动的过程中，因为adapter item 复用的原因，会出现内容的显式错乱。
+正例：
+```java
+@Override
+public View getView(int position,View convertView,ViewGroup parent){
+  ViewHolder myViews;
+  if(convertView == null){
+    myViews  = new ViewHolder();
+    convertView = mInflater.inflate(R.layout.list_item,null);
+    myViews.mUsername = (TextView)convertView.findViewById(R.id.username);
+    convertView.setTag(myViews);
+  }else{
+    myViews = (ViewHolder)convertView.getTag();
+  }
+  Info p = infoList.get(position);
+  String dn = p.getDisplayName;
+  myViews.mUsername.setText(StringUtils.isEmpty(dn)?"":dn);
+  return convertView;
+ }
+ static class ViewHolder{
+  private TextView mUsername；
+ }
+```
 
+### 8.Activity或Fragment中动态注册BroadCastReceiver时，registerReceiver()和unregisterReceiver()要成对出现
+#### 说明：
+#### 如果registerReceiver()和unregisterReceiver()不成对出现，则可能导致已经注册的receiver没有在合适的时机注销，导致内存泄漏，占用内存控件，加重SystemService负担
+#### 部分华为的机型会对receiver进行资源管控，单个应用注册过多receiver会触发管控模块报出异常，应用直接崩溃
+正例：
+```java
+public class MainActivity extends AppCompatActivity{
+    private static MyReceiver myReceiver = new MyReceiver();
+    ...
+    @Override
+    protected void onResume(){
+      super.onResume();
+      IntentFilter filter = new InterntFilteer("com.example.myservice");
+      registerReceiver(myReceiver,filter);
+    }
+    @Override
+    protected void onPause(){
+      super.onPause();
+      unregisterReceiveer(myReceiver);
+    }
+    ...
+}
+```
+反例：
+```java
+public class MainActivity extends AppCompatActivity{
+  private static MyReceiver myReceiver;
+  @Override
+  protected void onResume(){
+    super.onResume();
+    myReceiver = new MyReceiver();
+    IntentFilter filter = new IntentFilteer("com.example.myservice");
+    registerReceiver(myReceiver,filter);
+  }
+  @Override
+  protected void onDestory(){
+    super.onDestroy();
+    unregisterReceiver(myReceiver);
+  }
+}
+```
 
+## UI与布局
+### 1.布局中不得不适用ViewGroup多嵌套时，不要使用LinearLayout嵌套，改用RelativeLayout，可以有效降低嵌套数
+#### 说明：
+#### Android应用页面上任何一个VIew都需要经过measure、layout、draw三个步骤才能被正确的渲染。从xml layout 的顶部节点开始进行measure，每个子节点都需要向自己的父节点提供自己的尺寸来决定展示的位置，在此过程中可能还会重新measure（由此可能导致measure的时间消耗为原来的2-3倍）。节点所处位置越深，嵌套带来的measure越多，计算就会越费时。这就是为什么扁平的VIew结构性能会更好
+#### 同时，页面上的View越多，measure、layout、draw所花费的时间就越久。要缩短这个时间，关键是保持View的树形结构尽量扁平，而且要移除所有不需要渲染的View。理想情况下，总共的measure，layout，draw时间应该被很好的控制在16ms以内，以保证滑动屏幕时UI的流畅。
+#### 要找到那些多余的View（增加渲染延迟的view），可以用Android Studio Monitor里的Hierarachy Viewer工具，可视化查看所有的view
+正例:
+```java
+  <?xml version="1.0" encoding="utf-8"?>
+  <android.support.constraint.ConstraintLayout>
+    <RelativeLayout>
+    <TextView/>
+    ...
+    <ImageView/>
+    </RelativeLayout》
+  </android.support.constraint.ConstraintLayou>
+```
+反例：
+```java
+  <?xml version="1.0" encoding="utf-8"?>
+  <LinearLayout>
+    <LinearLayout>
+      <RelativeLayout>
+      <TextView/>
+      ...
+      <ImageView/>
+      </RelativeLayout>
+    </LinearLayout>
+  </LinearLayout>
+```
+多重嵌套导致measure以及layout等步骤耗时过多
 
+### 2.禁止在非ui线程进行view相关操作
 
+### 3.禁止在设计布局时多次设置子view和父view中间为同样的背景造成页面过度绘制，推荐将不需要显示的布局进行即时隐藏。
+正例：
+```java
+  <?xml version="1.0" encoding="utf-8"?>
+   <Linear xmlns:android="http://schemas.android.com/apk/res/android"
+     android:layout_width="fill_parent"
+     android:layout_height="fill_parent"
+     android:orientation="vertical">
+  <TextView
+     android:layout_width="fill_parent"
+     android:layout_height="wrap_content"
+     android:text="@String/hello"/>
+  <Button
+     android:layout_width="fill_parent"
+     android:layout_height="wrap_content"
+     android:text="click it!"
+     android:id="@+id/btn_mybutton"/>
+  <ImageView
+     android:id="@+id/img"
+     android:layout_width="fill_parent"
+     android:layout_height="wrap_content"
+     android:visibility="gone"
+     android:src="@drawable/youttube"/>
+  <TextView
+     android:text="it is an example!"
+     android:layout_width="fill_parent"
+     android:layout_height="wrap_content"/>
+  </LinearLayout>
+```
+反例：
+```java
+  @Override
+  protected void onDraw(Canvas canvas){
+    super.onDraw(canvas);
+    int width = getWidth();
+    int height = getHeight();
+    mPaint.setColor(Color.GRAY);
+    canvas.drawRect(0,0,withd,height,mPaint);
+    mPaint.setColor(Color.CYAN);
+    canvas.drawRect(0,height/4,withd,height,mPaint);
+    mPaint.setColor(Color.DKGRAY);
+    canvas.drawRect(0,height/3,withd,height,mPaint);
+    mPaint.setColor(Color.LTGRAY);
+    canvas.drawRect(0,height/2,withd,height,mPaint);
+  }
+```
 
+### 4.不能使用ScrollView包裹ListVIew/GridView/ExpandableListView;因为这样会把ListView的所有Item都加在到内存中，要消耗巨大的内存和CPU去绘制图面
+#### 说明：
+#### ScrollView中件套List或RecyclerView的做法官方明确禁止。除了开发过程中遇到的各种视觉和交互问题，这种做法对性能也有较大的损耗。ListView等UI组件自身有垂直滚动的功能，也没必要在嵌套一层ScrollView。目前为了较好的UI体验，更贴近Material Design 的设计，推荐使用NestedScrollView
+正例：
+```java
+  <?xml version="1.0" encoding="utf-8"?>
+  <Linearayout>
+    <android.support.v4.widget.NestedScrollView>
+      <LinearLayout>
+        <ImageView/>
+        ...
+        <android.support.7.widget.RecyclerView/>
+      </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+  </LinearLayout>
+```
+反例：
+```java
+  <ScrollView>
+    <LinearLayout>
+      <TextView/>
+      ...
+      <ListView/>
+      <TextView/>
+    </LinearLayout>
+  </ScrollView>
+```
 
+## 进程、线程与消息通信
+### 1.不要通过Intent在Android基础组件之间传递大数据（binder transaction缓存为1MB）,可能导致OOM
+### 2.在Application的业务初始化代码加入进程判断，确保只在自己需要的进程初始化，特别是后台进程减少不必要的业务初始化
+正例：
+```java
+  public class MyApplication extends Application{
+    @Override
+    public void onCreate(){
+      //在所有进程中初始化
+      ...
+      //仅在主进程中初始化
+      if(mainProcess){
+        ...
+      }
+      //仅在后台进程中初始化
+      if(bgProcess){
+        ...
+      }
+    }
+  }
+ ```
+### 3.新建线程时，必须通过线程池提供（AsyncTask或者ThreadPoolExecutor或者其他形式自定义的线程池），不允许在应用中自行显示创建线程
+#### 说明：
+#### 使用线程池的好处就是减少在创建和销毁线程上所花的时间以及系统资源的开销，解决资源不足的问题。如果不适用线程池，有可能造成系统创建大量同类线程而导致消耗完内存或者“过渡切换”的问题。另外创建匿名线程不便于后续的资源使用分析，对性能分析等会造成困扰
+正例：
+```java
+  int UNMBER_OF_CORES = Runtime.getRuntime().availableProcessors();
+  int KEEP_ALIVE_TIME = 1;
+  TimeUnit KEEP_ALIVE_TIME_UNIT = TimeUnit.SECONDS;
+  BlockingQueue<Runnable> taskQueue = new LinkedBlockingQueue<Runnable>();
+  ExecutorService executorService = new TreadPoolExecutor(NUMBER_OF_CORES,NUMBER_OF_CORES*2,KEEP_ALIVE_TIME,KEEP_ALIVE_TIME_UNIT,taskQueue,new BackgroundThredFactory(),new DefaultRejectedExecutionHandler());
+  //执行任务
+  executorService.execute(new Runnnable(){
+    ...
+  });
+```
+反例：
+```java
 
+```
 
 
 
