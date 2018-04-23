@@ -376,7 +376,8 @@ public class MainActivity extends AppCompatActivity{
   int KEEP_ALIVE_TIME = 1;
   TimeUnit KEEP_ALIVE_TIME_UNIT = TimeUnit.SECONDS;
   BlockingQueue<Runnable> taskQueue = new LinkedBlockingQueue<Runnable>();
-  ExecutorService executorService = new TreadPoolExecutor(NUMBER_OF_CORES,NUMBER_OF_CORES*2,KEEP_ALIVE_TIME,KEEP_ALIVE_TIME_UNIT,taskQueue,new BackgroundThredFactory(),new DefaultRejectedExecutionHandler());
+  ExecutorService executorService = new TreadPoolExecutor(NUMBER_OF_CORES,NUMBER_OF_CORES*2,
+  KEEP_ALIVE_TIME,KEEP_ALIVE_TIME_UNIT,taskQueue,new BackgroundThredFactory(),new DefaultRejectedExecutionHandler());
   //执行任务
   executorService.execute(new Runnnable(){
     ...
@@ -384,13 +385,90 @@ public class MainActivity extends AppCompatActivity{
 ```
 反例：
 ```java
-
+  new Thread(new Runnable(){
+    @Override
+    public void run(){
+      //操作语句
+      ...
+    }
+  }).start();
 ```
 
+### 4.线程池不允许使用Executors去创建，而是通过ThreadPoolExecutor的方式，这样的处理方式让写的同学更加明确线程池的运行规则，规避资源耗尽的风险。
+#### 说明：
+#### Executors返回的线程池对象的弊端如下：
+#### 1）FixedThreadPool 和 SingleThreadPool：允许的请求队列长度为Integer.MAX_VALUE,可能会堆积大量的请求，从而导致OOM；
+#### 2）CachedThreadPool 和 ScheduledThreadPool:允许的创建线程数量为Integer.MAX_VALUE,可能会创建大量的线程，从而导致OOM；
+正例：
+```java
+  int NUMBER_OF_CORES = Runtime.getRuntime().availableProcessors();
+  int KEEP_ALIVE_TIME = 1;
+  TimeUnit KEEP_ALIVE_TIME_UNIT = TimeUnit.SECONDS;
+  BlockingQueue<Runnable> taskQueue = new LinkedBlockingQueue<Runnable>();
+  ExecutorService executorService = new ThreadPoolExecutor(NUMBER_OF_CORES,NUMBER_OF_CORES*2,
+  KEEP_ALIVE_TIME,KEEP_ALIVE_TIME_UNIT,taskQueue,new BackgroundThreadFactory(),new DefaultRejectedExecutionHandler());
+```
+反例：
+```java
+ExecutorService cachedThreadPool = Executors.newCachedThreadPool();
+```
 
+### 5.子线程中不能更新界面，更新界面必须在主线程中进行，网络操作不能再主线程中调用
+### 6.不要再非UI线程中初始化ViewStub，否则会返回null
 
+## 文件与数据库
+### 1.任何时候不要硬编码文件路径，请使用Android文件系统API访问
+#### 说明：
+#### Android 应用提供内部和外部存储，分别用于存放应用自身数据以及应用产生的用户数据。可以通过相关API接口获取对应的目录，进行文件操作
+android.os.Environment#getExternalStorageDirectory()
+android.os.Environment#getExternalStroagePublicDirectory()
+android.content.Context#getFilesDir()
+android.content.Context#getCacheDir()
+正例：
+```java
+  public File getDir(String alName){
+    File file = new File(Envieonment.getExternalStoragePublicDirectory(
+      Environment.DIRECTORY_PICTURES),alNmae);
+    if(!file.mkdirs()){
+      Log.e(LOG_TAG,"Directory not created");
+    }
+    return file;
+  }
+```
+反例：
+```java
+  public File getDir(String alName){
+    //任何时候都不要硬编码文件路径，这不仅存在安全隐患，也让app更容易出现适配问题
+    File file = new File("/mnt/sdcard/Download/Album",alName);
+    if(!file.mkdirs()){
+      Log.e(LOG_TAG,"Directory not created");
+    }
+    return file;
+  }
+```
 
+### 2.当时用外部存储时，必须检查外部存储的可用性
+正例：
+```java
+  //读/写检查
+  public boolean isExternalStorageState();
+    String state = Environment.getExternalStorageState();
+    if(Environment.MEDIA_MOUNTED.equals(state)){
+     return true;
+    }
+    return false;
+  }
+  //只读检查
+  public boolean isExternalStorageReadable(){
+    String state = Environment.getExternalStorageState();
+    if(Environment.MEDIA_MOUNTED.equals(state)||Environment.MEDIA_MOUNTED_READ_ONLY.equals(state)){
+      return true;
+    }
+   return false;
+  }
+```
 
+### 3.应用间共享文件时，
 
 
 
