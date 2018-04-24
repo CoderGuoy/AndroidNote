@@ -468,10 +468,238 @@ android.content.Context#getCacheDir()
   }
 ```
 
-### 3.应用间共享文件时，
+### 3.应用间共享文件时，不要通过放宽文件系统权限的方式去实现，而应适用FileProvider
+正例：
+```java
+<!--AndroidManifest.xml-->
+  <manifest>
+    ...
+    <application>
+      ...
+      <provider
+        android:name="android.support.v4.content.FileProvider"
+        android:authorities="com.example.fileprovider"
+        android:exported="false"
+        android:grantUriPermissions="true">
+        <meta-data
+            android:name="android.support.FILE_PROVIDER_PATHS"
+            android:resourse="@xml/provider_paths"/>
+      </provider>
+      ...
+    </manifest>
+    <!--res/xml/provider_paths.xml-->
+    <paths>
+      <files-path path="album/" name="myimages"/>
+    </paths>
+    void getAlbumImage(String imagePath){
+      File image = new File(iamgePath);
+      Intent getAlbumImageIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+      Uri imageUri = FileProvider.getUriForFile(this,"com.example.provider",iamge);
+      getAlbumImageIntent.putExtra(MediaStore.EXTRA_OUTPUT,inmageUri);
+      startActivityForResult(takePhotoIntent,REQUEST_GET_ALBUMIMAGE);
+    }
+```
+反例：
+```java
+  void getAlbumImage(String iamgePaht){
+    File image = new File(iamgePaht);
+    Intent getAlbumImageIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+    //不要使用 file:// 的URI分享文件给别的应用，包括但不限于Intent
+    getAlbumImageIntent.putExtra(MediaStore.EXTRA_OUTPUT,Uri.fromFile(iamge));
+    startActivityForResult(takePhotoIntent,RESQUEST_GET_ALBUMIMAGE);
+  }
+```
 
+### 4.数据库Cursor必须确保使用完后关闭，避免内存泄漏
+#### 说明：
+#### Cursor是对数据库查询结果集管理的一个类，当查询的结果集较小时，消耗内存不易察觉。但是当结果集较大，长时间重复操作会导致内存消耗过大，需要开发者操作完成后手动关闭Cursor。
+#### 数据库Cursor在创建及使用时，可能发生各种异常，无论程序是否正常结束，必须在最后确保Cursor正确关闭，以避免内存泄漏。同时，如果Cursor的使用还牵涉多线程场景，那么需要自行保证操作同步
+正例：
+```java
+  public void handlePhotos(SQLiteDatabase db,String userId){
+    Cursor cursor;
+    try{
+      cursor = db.query(TUserPhoto,new String[]{"userId","content"},"userId=?",new String[]{userId),null,null,null);
+      while(cursor.moveToNext()){
+        //TODO
+      }
+    }catch(Exception e){
+      //TODO
+    }finally{
+      if(cursor!=null){
+        cursor.close();
+      }
+    }
+  }
+```
+反例：
+```java
+  public void handlePhotos(SQLiteDatabase db,String userId){
+    Cursor cursor = db.query(TUserPhoto,new String[] {"userId","content"},"userId=?",new String[]{userId},null,null,null);
+    while(cursor.moveToNext()){
+      //TODO
+    }
+    //不能放任cursor不关闭
+```
 
+### 5.多线程操作写入数据库时，需要使用事物，以免出现同步问题
+#### 说明：
+#### Android通过SQLiteOpenHelper获取数据库SQLiteDatabase实例，Helper中会自动缓存已经打开的SQLiteDatabase实例，单个APP中应使用SQliteOpenHelper的单例模式确保数据库连接唯一。由于SQLite自身是数据库级锁，单个数据库操作是保证线程安全的（不能同时写入），transaction时一次原子操作，因此处于事务中的操作是线程安全的
+#### 若同时打开多个数据库连接，并通过多线程写入数据库，会导致数据库异常，提示数据库已被锁住
+正例：
+```java
+  public void insertUserPhoto(SQliteDatabase db,String userId,String content){
+    ContentValues cv = new ContentValues();
+    cv.put("userId",userId);
+    cv.put("content",content);
+    db.beginTransaction();
+    try{
+      db.insert(TUserPhoto,null,cv);
+      //其他操作
+      db.setTransactionSuccessful();
+    }catch(Exception e){
+      //TODO
+    }finally{
+      db.endTransaction();
+    }
+ }
+```
+反例：
+```java
+  public void insertUserPhoto(SQLiteDatabase db,String userId,String content){
+    ContentValues cv = new ContentValues();
+    cv.put("userId",userId);
+    cv.put("content",content);
+    db.insert(TUserPhoto,null,cv);
+  }
+```
 
+### 6.执行SQL语句时，应使用SQLiteDatabase#insert()、update()、delete()，不要使用SQLiteDatabase#execSQL(),以免SQL注入风险
+正例：
+```java
+  public int updataUserPhoto(SQLiteDatabse db,String userId,String content){
+    ContentValues cv = new ContentValues();
+    cv.put("content",content);
+    String[] args = {String.ValueOf(userId)};
+    return db.update(TuserPhoto,cv,"userId=?",args);
+  }
+```
+反例：
+```java
+  public int updataUserPhoto(SQLiteDatabse db,String userId,String content){
+    String sqlStmt = String.format("UPDATE % s set content=%s WHERE =%s",TUserPhoto,userId,content);
+    //请提高安全意识，不要直接执行字符串作为SQL语句
+    db.execSQl(sqlStmt);
+  }
+```
+
+### 7.如果ContentProvider管理的数据存储在SQL数据库中，应该避免将不受信任的外部数据直接拼接在原始SQL语句中，可使用一个用于将？作为可替换参数的选择子句以及一个单独的选择参数数组，会避免SQL注入
+正例：
+```java
+  //使用一个可替换参数
+  String mSelectionClause= "var = ?";
+  String[] selectionArgs = {""};
+  selectionArgs[0] = mUserInput;
+```
+反例：
+```java
+  //拼接用户输入内容和列名
+  String mSelectionClause = "var = " +mUserInput;
+```
+
+## Bitmap、Drawable与动画
+### 1.加载大图片或者一次性加载多张图片，应该在异步线程中进行。图片的加载，涉及到IO操作，以及CPU密集操作，很可能引起卡顿
+正例：
+```java
+   class BitmapWorkerTask extends AsyncTask<Integer,Void,Bitmap>{
+    ...
+    //在后台进行图片解码
+    @Override
+    portected Bitmap doInBackgrund(Integer...params){
+      final Bitmap bitmap = BitmapFactory.decodeFile("some paht");
+      return bitmap;
+    }
+    ...
+  }
+```
+反例：
+```java
+  Button btnLoadImage = (Button)findViewById(R.id.btn);
+  btnLoadImage.setOnClickListener(new OnClickListener(){
+    public void onClick(View v){
+      Bitmap bitmap = BitmapFactory.decodeFile("some path");
+    }
+  });
+```
+
+### 2.在ListView，VIewPager，RecyclerView,GridView等组件中使用图片时，应做好图片的缓存，避免始终持有图片导致内存泄漏，也避免重复创建图片，引起性能问题。建议使用Fresco、Glide
+正例：
+```java
+  例如使用系统LruCache缓存
+   LruCache<String,Bitmap>mMemoryCache;
+   @Override
+   protected void onCreate(Bundle savedState){
+    ...
+    //获取可用内存的最大值，使用内存超出这个值将抛出OutOfMemory异常。LruCache通过构造函数传入缓存值，以KB为单位。
+    final int maxMemory = (int)(Runtime.getRuntime().maxMemory()/1024);
+    //把最大可用内存的1/8作为缓存控件
+    final int cacheSize = maxMemory/8;
+    mMemoryCache = new LruCache<String,Bitmap>(cacheSize){
+      @Override
+      protected int sizeOf(String key,Bitmap bitmap){
+        return bitmap.getByteCount()/1024;
+      }
+    };
+    ...
+  }
+  public void addBitmapToMemoryCache(String key,Bitmap bitmap){
+    if(getBitmapFromMermCache(key)==null){
+      mMemoryCache.put(key,bitmap);
+    }
+  }
+  public Bitmap getBitmapFromMemCache(String key){
+    return mMemoryCache.get(key);
+  }
+  public void loadBitmap(int resId,ImageView imageview){
+    final String inmageKey = String.valueOf(resId);
+    final Bitmap bitmap = getBitmapFromMemCache(imageKey);
+    if(bitmap!=null){
+      mImageView.setImageBitmap(bitmap);
+    }else{
+      mImageView.setImageResource(R.drawable.image_placeholder);
+      BitmapWorkerTask task = new BItmapWorkerTask(mImageView);
+      task.execude(resId);
+    }
+ }
+ class BitmapWorkerTask extends AsyncTask<Integer,Void,Bitmap>{
+  ...
+  //在后台进行图片解码
+  @Override
+  protected Bitmap doinBackground(Interger...params){
+    final Bitmap bitmap = decodeSampledBitmapFromResource(getResources(),params[0],100,100));
+    addBitmapToMemoryCache(String.valueOf(params[0]),bitmap);
+    return bitmap:
+  }
+  ...
+ }
+```
+反例：
+```java
+  没有存储，每次都需要解码，或者有缓存但是没有合适的淘汰机制，导致缓存效果很差，依然经常需要重新解码
+```
+
+### 3.png图片使用tinypng或者类似工具压缩，减少包体积
+
+### 4.使用完毕的图片，应该及时回收，释放宝贵的内存
+正例：
+```java
+  Bitmap bitmap = null;
+  loadBitmapAsync(new OnResult(result){
+    bitmap = result;
+  });
+  ...使用该bitmap...
+  //使用结束，在2.3.3及以下需要调用recycle()函数，
+```
 
 
 
