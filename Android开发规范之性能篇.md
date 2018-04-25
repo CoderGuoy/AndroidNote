@@ -870,10 +870,36 @@ android.content.Context#getCacheDir()
   以上代码使用Log.d Log.v 打印程序的执行过程的username等调试信息，日志没有关闭，攻击者可以直接从Logcat中读取这些敏感信息。所以在产品的线上版本中关闭调试接口，不要输出敏感信息。
 ```
 
-### 11.对于内部使用的组件
+### 11.对于内部使用的组件，显示设置组件的"android:exported"属性为false
+#### 说明：
+#### Android 应用使用Intent机制在组件之间传递数据，如果应用在使用getIntent(),getAction(),Intent.getXXXExtra()获取到空数据、异常或者畸形数据时没有进行异常捕获，应用就会发生Crash，应用不可使用（本地拒绝服务）恶意应用可通过向受害者应用发送此类空数据、异常或者机型数据从而使应用产生本地拒绝服务
 
+### 12.应用发布前确保android:debuggable属性设置为false
 
+### 13.使用Intent Scheme URL 需要做过滤
+#### 说明：
+#### 如果浏览器支持Intent Scheme Uri语法,如果过滤不当，那么恶意用户可能通过浏览器js代码进行一些恶意行为，比如盗取cookie等。如果使用了Intent.parseUri函数，获取的intent必须严格过滤，intent至少包含addCateqory("android.intent.category.BROWSABLE"),setComponent(null),setSelector(null)3个策略
+正例：
+```java
+  //将intent scheme URL 转换为intent对象
+  Intent intent = Intent.parseUri(rui);
+  //禁止没有BROWSABLE category的情况下启动activity
+  intent.addCategory("android.intent.category.BROWSABLE");
+  intent.setComponent(null);
+  intent.setSelector(null);
+  //使用intent启动activity
+  content.startActivityIfNeeded(intent,-1)
+```
+反例：
+```java
+  Intent intent = Intent.parseUri(uri.toString().trim.substring(15),0);
+  intent.addCategory("android.intent.category.BROWSABLE");
+  context.startActivity(intent);
+```
 
+### 14.密钥加密存储或者经过变形处理后用于加解密运算，切勿硬编码到代码中
+#### 说明：
+#### 
 
 
 
