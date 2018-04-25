@@ -698,8 +698,183 @@ android.content.Context#getCacheDir()
     bitmap = result;
   });
   ...使用该bitmap...
-  //使用结束，在2.3.3及以下需要调用recycle()函数，
+  //使用结束，在2.3.3及以下需要调用recycle()函数，在2.3.3以上GC会自动管理，除非你明确不需要再用
+  if(Build.VERSION.SDK_INT<=10){
+    bitmap.recycle();
+  }
+  bitmap = null;
 ```
+反例：
+使用完成图片，始终不释放资源
+
+### 5.在Activity.onPause()或Activity.onStop()回调中，关闭当前activity正在执行的动画
+正例：
+```java
+  public class MyActivity extends Activity{
+    ImageView mImageView;
+    Animation mAnimation;
+    Button mBtn;
+  /** 首次创建activity时调用 */
+    @Override
+    public void onCreate(Bundle savedInstanceState){
+      supter.onCreate(savedInstanceState);
+      setContentView(R.layout.main);
+      mImageView = (ImageView)findVIewById(R.id.ImageView01);
+      mAnimation = AnimationUtils.loadAnimation(this,R.anim.anim);
+      mBtn = (Button)findViewById(R.id.Button01);
+      mBtn.setOnClickListener(new View.OnClickListener(){
+        @Override
+        public void onClick(View v){
+          mImageVIew.startAnimation(mAnimation);
+        }
+      });
+    }
+    public void onPause(){
+      //页面退出，及时清理动画资源
+      mImageView.clearAnimation();
+    }
+ }
+```
+反例：
+  页面退出时，不关闭该页面相关的动画
+
+## 安全
+### 1.使用PendingIntent时，禁止使用空intent，同时禁止使用隐式Intent
+#### 说明：
+#### 1）使用PendingIntent时，使用了空Intent，会导致恶意用户劫持修改Intent的内容。禁止使用一个空Intent去构造PendingIntent，构造PendingIntent的Intent一定要设置ComponentName或者action
+#### 2）PendingIntent可以让其它APP中的代码像是运行自己APP中。PendingIntent的intent接收方在使用该intent时与发送方有相同的权限。在使用PendingIntent时，PendingIntent中包装的intent如果是隐式的Intent，容易遭到劫持，导致信息泄露
+正例：
+```java
+  Intent intent = new Intent(this,SomeActivity.class);
+  PendingIntent pendingIntent = PendingIntent.getActivity(this,1,intent,PendingIntent.FLAG_UPDATE_CURRENT);
+  try{
+    pendingIntent.send();
+  }catch(PendingIntent.CanceledException e){
+    e.printStackTrace();
+  }
+```
+反例1：
+```java
+  Bundle addAccountOptions = new Bundle();
+  mPendingIntent = PendingIntent.getBroadcast(this,0,new Intent,0);
+  addAccountOptions.putParcelable(KEY_CALLER_IDENTITY,mPendingIntent);
+  addAccountOptions.putBoolean(EXTRA_HAS_MULTIPLE_USERS,Utils.hasMultipleUsers(this));
+  AccountManager.get(this).addAccount(accountType,null,null,addAccountOptions,null,mCallback,null);
+```
+反例2：
+```java
+  mPendingIntent是通过new Intent()构造原始Intent的，所以为“双无”Intent，这个PendingIntent最终被通过AccountManager.addAccount方法传递给了恶意APP接口
+  Intent intent = new Intent("com.test.test.pushservice.action.METHOD");
+  intent.addFlags(32);
+  intent.putExtra("app",PendingIntent.getBroadcast(this,0,intent,0));
+  如上代码PendingIntent.getBroadcast，PendingIntent中包含的Intent为隐式intent，因此当PendingIntent出发执行时，发送的intent很可能被嗅探或者劫持，导致intent内容泄漏
+```
+
+### 2.禁止使用常量初始化矢量参数构建 IvParameterSpec,建议IV通过随机方式产生
+#### 说明：
+#### 使用固定初始化向量，结果密码文本可预测性会高很多，容易受到字典式攻击。iv的作用主要是用于产生密文的第一个block，以使最终生成的密文产生差异（明文相同的情况下），使用密码攻击变得更为困难，除此之外iv并无其他用途。因此iv通过随机方式产生是一种十分便捷、有效的途径。
+正例：
+```java
+  byte[] rand = new byte[16];
+  SecureRandom r = new SecureRandom();
+  r.nextBytes(rand);
+  IvParameterSpec iv = new IvParameterSpec(rand);
+```
+反例：
+```java
+  IvParameterSpec iv = new IvParameterSpec("1234567890",getBytes());
+  System.out.println(iv.getIV());
+```
+### 3.将android:allowbackup属性设置为flase,防止adb backup 导出数据
+#### 说明：
+#### 在AndroidManifest.xml文件中为了方便对程序数据的备份和恢复在Android API level 8 以后增加了android:allowbackup属性值。默认情况下这个属性值为true，故当allowBackup标志值为true时，即可通过adb backup 和 adb restore 来备份和恢复应用程序数据
+正例：
+```java
+  <application
+    android:allowBackup="false"
+    android:largeHeap="true"
+    android:icon="@drawable/test_launcher"
+    android:lable="@string/app_name"
+    android:theme="@style/AppTheme">
+```
+
+### 4.在现实的HostnameVerifier子类中，需要使用verify函数校验服务器主机名的合法性，否则会导致恶意程序利用中间人攻击绕过主机名校验。
+#### 说明：
+#### 在握手期间，如果RUL的主机名和服务器的标识主机名不匹配，则验证机制可以回调此接口的实现程序来确定是否应该允许此链接。如果回调内实现不恰当，默认接受所有域名，则有安全风险
+反例：
+```java
+  HostnameVerifier hnv = new HostnameVerifier(){
+  @Override
+  public boolean verify(String hostname,SSLSession session){
+    //总是返回true，接受任意域名服务器
+    return ture;
+   }
+  };
+  HttpsURLConnection.setDefaultHostnameVerifiler(hnv);
+```
+正例：
+```java
+  HostnameVerifier hnv = new HostnameVerifier(){
+  @Override
+  public boolean verify(String hostname,SSLSession session){
+    //示例
+    if("yourhostname",equals(hostname)){
+      return true;
+    }else{
+      HostnameVerifier hv = HttpsURLConnection.getDefaultHostnameVerifier();
+      return hv.verify(hostname,session);
+    }
+  }
+ };
+```
+
+### 5.利用X509TrusManager子类中的checkServerTrusted函数校验服务器端证书的合法性
+#### 说明：
+#### 在实现的X509TrusManager子类中未对服务端的证书做检验，这样会导致不被信任的证书绕过证书校验机制
+反例：
+```java
+  TrustManager tm = new X509TrustManager(){
+    public void checkClientTrusted(X509Certificate[] chain,String authType)
+    throws CeertificateException{
+      //do nothing,接收任意客户端证书
+    }
+    public void checkServerTrusted(X509Certificate[] chain,String authType)
+    throws CeertificateException{
+      //do nothing,接收任意客户端证书
+    }
+    public X509Certificate[] getAcceptedIssuers(){
+      return null;
+    }
+  };
+  sslContext.init(null,new TrustManager[] { tm },null);
+```
+
+### 6.META-INF目录中不能包含如.apk,.odex,.so等敏感文件，该文件夹没有经过签名，容易被恶意替换
+
+### 7.Receiver/Provider 不能在毫无权限控制的情况下，将android:export设置为true
+
+### 8.阻止webview通过file:schema方式访问本地敏感数据
+
+### 9.不要广播敏感信息，只能在本应用使用LocalBroadcast，避免被别的应用收到，或者setPackage做限制
+
+### 10.不要把敏感信息打印到log中
+#### 说明：
+#### 在APP的开发过程中，为了我方便调试，通常会使用log函数输入一些关键流程的信息，这些信息通常会包含敏感内容，如执行流程、明文的用户名密码等，这会让攻击者更加容易的了解APP内部结构方便破解和攻击，甚至直接获取到有价值的敏感信息
+反例：
+```java
+  String username = "log_leak";
+  String password = "log_leak_pwd";
+  Log.d("MY_APP","usesname"+username);
+  Log.d("MY_APP","password"+password,new Throwable());
+  Log.v("MY_APP","send message to server");
+  以上代码使用Log.d Log.v 打印程序的执行过程的username等调试信息，日志没有关闭，攻击者可以直接从Logcat中读取这些敏感信息。所以在产品的线上版本中关闭调试接口，不要输出敏感信息。
+```
+
+### 11.对于内部使用的组件
+
+
+
+
 
 
 
