@@ -899,9 +899,63 @@ android.content.Context#getCacheDir()
 
 ### 14.密钥加密存储或者经过变形处理后用于加解密运算，切勿硬编码到代码中
 #### 说明：
-#### 
+#### 应用程序在加解密时，使用硬编码在程序中的密钥，攻击者通过反编译拿到密钥可以轻易解密APP通信数据
 
+### 15.将所需要动态加载的文件放置在apk内部，或者应用私有目录中，如果必须要把所加载的文件放置在可被其它应用读写的目录中（比如sdcard）,建议对不可信的加载资源进行完整性校验和白名单处理，以保证不被恶意代码注入
 
+### 16.除非min API level >=17,请注意addJavascriptInterface的使用
+#### 说明：
+#### API level>=17,允许js被调用的函数必须以@JavascriptInterface进行注解，因此不受影响；对于API level < 17，尽量不要使用addJavascriptInterface，如果一定要用，那么：
+#### 1）使用https协议加载URL，使用证书校验，防止访问的页面呗篡改挂马；
+#### 2）对价在URL做白名单过滤、完整性校验等放置访问的页面被篡改；
+#### 3）如果加载本地html,应该会HTML内置在APK中，以及对HTML页面进行完整性校验
+
+### 17.使用Android的ASE/DES/DESede加密算法时，不要使用默认的加密模式ECB，应显示指定使用CBC霍CFB加密模式
+#### 说明：
+#### 加密模式ECB、CBC、CFB、OFB等，其中ECB的安全性较弱，会使相同的铭文在不同的时候产生相同的密文，容易遇到字典攻击，建议使用CBC或CFB模式
+#### 1）ECB：Electronic codebook,电子密码本模式
+#### 2）CBC：Cipher-block chaining,密码分组链接模式
+#### 3）CFB：Cipher feedback，密文反馈模式
+#### 4）OFB：Output feedback，输出反馈模式
+
+### 18.不要使用loopback来反馈敏感信息
+
+### 19.Android APP 在HTTPS通信中，验证策略需要改成严格模式。
+#### 说明：
+#### Android APP 在HTTPS通信中，使用ALLOW_ALL_HOSTNAME_VERIFIER,表示允许和所有的HOST建立SSL通信，这会存在中间人攻击的风险，最终导致敏感信息可能会被劫持，以及其他形式的攻击
+反例：
+```java
+  SSLSocketFactory sf = new MySSLSocketFactory(trustStore);
+  sf.setHostnameVIerifier(SSLSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER);
+  ALLOW_ALL_HOSTNAME_VERIFIER关闭host验证，允许和所有的host建立SSL通信，BROWSER_COMPATIBLE_HOSTNAME_VERIFIER和浏览器兼容的验证策略，即通配符能够匹配所有子域名，STRICT_HOSTNAME_VERIFIER炎哥匹配模式，hostname必须匹配第一个 CN 或者任何一个 subject-alts,以上例子使用了ALLOW_ALL_HOSTNAME_VERIFIER,需要改成STRICT_HOSTNAME_VERIFIER
+```
+
+### 20.开放的activity/service/receiver等需要对传入的intent做合法性校验
+
+## 其它
+### 1.不要通过Msg传递大的对象，会导致内存问题
+### 2.不能使用System.out.println打印log
+正例：
+```java
+  Log.d(TAG,"Some Android Debug info ...");
+```
+反例：
+```java
+  System.out.println("System out println...");
+```
+
+### 3.Log 的 tag 不能是" "
+#### 说明：
+#### 日志的tag是空字符串没有任何意义，也不利于过滤日志
+正例：
+```java
+  private static String TAG = "LoginActivity";
+  Loge.(TAG,"Login failed!");
+```
+反例:
+```java
+  Log.e("","Login failed!");
+```
 
 
 
