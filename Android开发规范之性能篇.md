@@ -65,7 +65,7 @@
          }
 ```
 
-### 4.避免在BroadcastReceiver#onReceive()中执行好使操作，如果有耗时工作，应该创建IntentService完成，而不应该在BroadcastReceiver内创建子线程去做
+### 4.避免在BroadcastReceiver#onReceive()中执行耗时操作，如果有耗时工作，应该创建IntentService完成，而不应该在BroadcastReceiver内创建子线程去做
 #### 说明：
 #### 由于该方法是在主线程执行，如果执行耗时操作会导致UI不流畅，可以使用IntentService、创建HandlerThread或者调用Context#registerReceiver(BroadcastReceiver，IntentFilter，String，Handler)方法等方式，在其他Wroker线程执行onReceive方法。BroadcastReceiver#onReceive()方法耗时超过10秒钟，可能会被系统杀死。
 正例：
